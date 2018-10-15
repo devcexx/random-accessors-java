@@ -1,0 +1,7 @@
+*.sh text eol=lf
+*.java text eol=lf
+*.xml text eol=lf
+*.c text eol=lf
+*.h text eol=lf
+*.so binary
+*.dylib binary
