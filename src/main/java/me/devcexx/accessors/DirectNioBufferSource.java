@@ -46,4 +46,17 @@ public class DirectNioBufferSource extends DirectMemorySource {
         byteBuffer.limit((int) length);
         return byteBuffer.slice();
     }
+
+    @Override
+    public void dealloc() {
+        //This must be overriden so the direct buffer should be cleaned through its cleaner,
+        //not a free statement, but, should I keep this empty, so the deallocation
+        //can only be performed from the byte source?
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        //Override this method so the deallocation process depends on the
+        //byte buffer, not on this source.
+    }
 }
