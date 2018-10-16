@@ -19,6 +19,6 @@ package me.devcexx.accessors;
 public class DirectMemorySourceTest extends AbstractRandomAccessorTest {
     @Override
     protected RandomAccessSource mkSource(long size) {
-        return DirectMemorySource.alloc(size);
+        return Sources.alloc(size);
     }
 }

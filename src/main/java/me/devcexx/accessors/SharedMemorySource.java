@@ -20,65 +20,6 @@ package me.devcexx.accessors;
  * Represents a memory source that is backend in a System V shared memory region.
  */
 public class SharedMemorySource extends DirectMemorySource {
-
-    /**
-     * Maps a shared memory block to the current process memory and returns a {@link SharedMemorySource}
-     * able to read/write it.
-     * @param key the key of the memory region.
-     * @param size the size of the memory block that will be attached.
-     * @param flags the system flags that will be used in the attach operation.
-     * @return a {@link SharedMemorySource} attached to the memory region just attached to the process.
-     */
-    public static SharedMemorySource attach(long key, long size, int flags) {
-        int shmid = AccessorNatives.shmget(key, size, flags);
-        long address = AccessorNatives.shmat(shmid, 0, 0);
-        return new SharedMemorySource(shmid, address, size, false);
-    }
-
-    /**
-     * Maps a shared memory block to the current process memory and returns a {@link SharedMemorySource}
-     * able to read it, using as region key the result of a {@code ftok} syscall.
-     * @param fkey the path of a file that will be used as the argument of the {@code ftok} syscall.
-     * @param kid a numeric identifier that will be used as the argument of the {@code ftok} syscall.
-     * @param size the size of the memory block that will be attached.
-     * @param flags the system flags that will be used in the attach operation.
-     * @return a {@link SharedMemorySource} attached to the memory region just attached to the process.
-     */
-    public static SharedMemorySource attach(String fkey, int kid, long size, int flags) {
-        return attach(AccessorNatives.ftok(fkey, kid), size, flags);
-    }
-
-    /**
-     * Creates a new shared memory block in the system and returns a {@link SharedMemorySource}
-     * able to read/write it.
-     * @param key the key of the memory region.
-     * @param size the size of the memory block that will be attached.
-     * @param flags the system flags that will be used in the attach operation.
-     * @param persistant a value indicating if the memory block should be destroyed after the
-     *                   deallocation of the current accessor, or should keep existing after that.
-     * @return a {@link SharedMemorySource} attached to the memory region just attached to the process.
-     */
-    public static SharedMemorySource create(long key, long size, int flags, boolean persistant) {
-        int shmid = AccessorNatives.shmget(key, size, flags | AccessorNatives.IPC_CREAT);
-        long address = AccessorNatives.shmat(shmid, 0, 0);
-        return new SharedMemorySource(shmid, address, size, !persistant);
-    }
-
-    /**
-     * Creates a new shared memory block in the system and returns a {@link SharedMemorySource}
-     * able to read/write it, using as region key the result of a {@code ftok} syscall.
-     * @param fkey the path of a file that will be used as the argument of the {@code ftok} syscall.
-     * @param kid a numeric identifier that will be used as the argument of the {@code ftok} syscall.
-     * @param size the size of the memory block that will be attached.
-     * @param flags the system flags that will be used in the attach operation.
-     * @param persistant a value indicating if the memory block should be destroyed after the
-     *                   deallocation of the current accessor, or should keep existing after that.
-     * @return a {@link SharedMemorySource} attached to the memory region just attached to the process.
-     */
-    public static SharedMemorySource create(String fkey, int kid, long size, int flags, boolean persistant) {
-        return create(AccessorNatives.ftok(fkey, kid), size, flags, !persistant);
-    }
-
     private final int shmid;
     private final boolean destroyOnDealloc;
     public SharedMemorySource(int shmid, long address, long length, boolean destroyOnDealloc) {

@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StreamsTest {
     @Test
     public void testInputStream() throws IOException {
-        DirectMemorySource source = DirectMemorySource.alloc(150);
+        DirectMemorySource source = Sources.alloc(150);
         byte[] data = new byte[150];
 
         for (int i = 0; i < data.length; i++) {
@@ -66,7 +66,7 @@ public class StreamsTest {
 
     @Test
     public void testOutputStream() throws IOException {
-        DirectMemorySource source = DirectMemorySource.alloc(150);
+        DirectMemorySource source = Sources.alloc(150);
         byte[] data = new byte[150];
 
         for (int i = 0; i < data.length; i++) {

@@ -54,7 +54,7 @@ public class PerformanceTest {
 
     @Test
     public void testOffHeapNativeEndiannessPerfomance() {
-        RandomAccessor buf = new RandomAccessor(DirectMemorySource.alloc(BUFFER_SIZE_IN_MB * MEGABYTE), MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        RandomAccessor buf = new RandomAccessor(Sources.alloc(BUFFER_SIZE_IN_MB * MEGABYTE), MemoryAccessorOrder.NATIVE_ENDIANNESS);
         double megasPerSecond = performTest(new OffHeapWritableBuffer(buf));
         printResults("Off Heap buffer with native endianness (" + buf.order() + ")", megasPerSecond);
 
@@ -64,7 +64,7 @@ public class PerformanceTest {
 
     @Test
     public void testOffHeapNonNativeEndiannessPerfomance() {
-        RandomAccessor buf = new RandomAccessor(DirectMemorySource.alloc(BUFFER_SIZE_IN_MB * MEGABYTE), MemoryAccessorOrder.NATIVE_ENDIANNESS.opposite());
+        RandomAccessor buf = new RandomAccessor(Sources.alloc(BUFFER_SIZE_IN_MB * MEGABYTE), MemoryAccessorOrder.NATIVE_ENDIANNESS.opposite());
         double megasPerSecond = performTest(new OffHeapWritableBuffer(buf));
         printResults("Off Heap buffer with non-native endianness (" + buf.order() + ")", megasPerSecond);
 
@@ -91,7 +91,7 @@ public class PerformanceTest {
 
     @Test
     public void testOffHeapThroughDirectBufferNativeEndiannessPerformance() {
-        RandomAccessSource buf = DirectMemorySource.alloc(BUFFER_SIZE_IN_MB * MEGABYTE);
+        RandomAccessSource buf = Sources.alloc(BUFFER_SIZE_IN_MB * MEGABYTE);
 
         ByteBuffer accessor = buf.byteBuffer();
         accessor.order(MemoryAccessorOrder.NATIVE_ENDIANNESS.nioOrder);
@@ -104,7 +104,7 @@ public class PerformanceTest {
 
     @Test
     public void testOffHeapThroughDirectBufferNonNativeEndiannessPerformance() {
-        RandomAccessSource buf = DirectMemorySource.alloc(BUFFER_SIZE_IN_MB * MEGABYTE);
+        RandomAccessSource buf = Sources.alloc(BUFFER_SIZE_IN_MB * MEGABYTE);
 
         ByteBuffer accessor = buf.byteBuffer();
         accessor.order(MemoryAccessorOrder.NATIVE_ENDIANNESS.opposite().nioOrder);

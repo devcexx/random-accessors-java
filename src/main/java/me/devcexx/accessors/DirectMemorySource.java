@@ -17,46 +17,11 @@
 package me.devcexx.accessors;
 
 import java.nio.ByteBuffer;
-import java.nio.channels.Channel;
 
 /**
  * Represents a memory block that can be directly read or written.
  */
 public class DirectMemorySource extends RandomAccessSource {
-
-    /**
-     * Allocates a new memory block with the specified size and attaches a new {@link DirectMemorySource}
-     * to it.
-     * @param size the block size as a non negative long value.
-     * @return a new {@link DirectMemorySource} attached to the just allocated memory region.
-     *
-     *
-     */
-    public static DirectMemorySource alloc(long size) {
-        return new DirectMemorySource(UnsafeMemory.alloc(size), size);
-    }
-
-    /**
-     * Allocates a new memory block with the specified size, filling it with zeroes,
-     * and attaches a new {@link DirectMemorySource} to it.
-     * @param size the block size as a non negative long value.
-     * @return a new {@link DirectMemorySource} attached to the just allocated memory region.
-     */
-    public static DirectMemorySource calloc(long size) {
-        return new DirectMemorySource(UnsafeMemory.allocAndSet(size, (byte) 0), size);
-    }
-
-    /**
-     * Allocates a new memory block with the specified size, filling it with the given data,
-     * and attaches a new {@link DirectMemorySource} to it.
-     * @param size the block size as a non negative long value.
-     * @param data the data that will be used to fill the new memory region.
-     * @return a new {@link DirectMemorySource} attached to the just allocated memory region.
-     */
-    public static DirectMemorySource allocAndSet(long size, byte data) {
-        return new DirectMemorySource(UnsafeMemory.allocAndSet(size, data), size);
-    }
-
     protected final long address;
 
     /**

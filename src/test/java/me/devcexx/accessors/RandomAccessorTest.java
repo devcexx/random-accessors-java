@@ -27,7 +27,7 @@ public class RandomAccessorTest {
 
     @Test
     public void testSlicing() {
-        RandomAccessor accessor = new RandomAccessor(DirectMemorySource.alloc(32));
+        RandomAccessor accessor = new RandomAccessor(Sources.alloc(32));
 
         for (int i = 0; i < 32; i++) {
             accessor.put(i, (byte) i);
@@ -46,17 +46,17 @@ public class RandomAccessorTest {
 
     @Test
     public void testPositioning() {
-        RandomAccessor acc1 = new RandomAccessor(DirectMemorySource.alloc(5), 3);
-        RandomAccessor acc2 = new RandomAccessor(DirectMemorySource.alloc(5), 5);
-        RandomAccessor acc3 = new RandomAccessor(DirectMemorySource.alloc(5), 1, 2);
+        RandomAccessor acc1 = new RandomAccessor(Sources.alloc(5), 3);
+        RandomAccessor acc2 = new RandomAccessor(Sources.alloc(5), 5);
+        RandomAccessor acc3 = new RandomAccessor(Sources.alloc(5), 1, 2);
 
         assertEquals(3, acc1.position());
         assertEquals(5, acc2.position());
         assertEquals(1, acc3.position());
 
-        assertThrows(IllegalArgumentException.class, () -> new RandomAccessor(DirectMemorySource.alloc(5), 6));
+        assertThrows(IllegalArgumentException.class, () -> new RandomAccessor(Sources.alloc(5), 6));
 
-        RandomAccessor accessor = new RandomAccessor(DirectMemorySource.alloc(512));
+        RandomAccessor accessor = new RandomAccessor(Sources.alloc(512));
         assertEquals(0, accessor.position());
 
         //As there are so many overloads for the put method
@@ -267,15 +267,15 @@ public class RandomAccessorTest {
 
     @Test
     public void testLimits() {
-        RandomAccessor acc1 = new RandomAccessor(DirectMemorySource.alloc(5), 3);
-        RandomAccessor acc2 = new RandomAccessor(DirectMemorySource.alloc(5), 5);
-        RandomAccessor acc3 = new RandomAccessor(DirectMemorySource.alloc(5), 1, 2);
+        RandomAccessor acc1 = new RandomAccessor(Sources.alloc(5), 3);
+        RandomAccessor acc2 = new RandomAccessor(Sources.alloc(5), 5);
+        RandomAccessor acc3 = new RandomAccessor(Sources.alloc(5), 1, 2);
 
         assertEquals(5, acc1.limit());
         assertEquals(5, acc2.limit());
         assertEquals(2, acc3.limit());
 
-        RandomAccessor accessor = new RandomAccessor(DirectMemorySource.alloc(512));
+        RandomAccessor accessor = new RandomAccessor(Sources.alloc(512));
         assertEquals(512, accessor.limit());
 
         accessor.limit(15);
@@ -402,7 +402,7 @@ public class RandomAccessorTest {
 
     @Test
     public void paddingTest() {
-        RandomAccessor accessor = new RandomAccessor(DirectMemorySource.alloc(1024));
+        RandomAccessor accessor = new RandomAccessor(Sources.alloc(1024));
 
         assertEquals(0, accessor.padTo(4, (byte) 'x'));
         assertEquals(0, accessor.position());
@@ -437,7 +437,7 @@ public class RandomAccessorTest {
 
     @Test
     public void alignTest() {
-        RandomAccessor accessor = new RandomAccessor(DirectMemorySource.alloc(1024));
+        RandomAccessor accessor = new RandomAccessor(Sources.alloc(1024));
 
         assertEquals(0, accessor.alignTo(4));
         assertEquals(0, accessor.position());
