@@ -85,13 +85,14 @@ public class ByteArraySource extends RandomAccessSource {
 	public void unsafeGet(long off, ByteBuffer buf) {
         if (buf.isDirect()) {
             UnsafeMemory.copyArrayToAddress(this.buf, (int) (this.off + off),
-                    UnsafeMemory.addressOfByteBuffer(buf), 1, buf.remaining(),
-                    MemoryAccessorOrder.NATIVE_ENDIANNESS);
+                    UnsafeMemory.addressOfByteBuffer(buf) + buf.position(), 1,
+                    buf.remaining(), MemoryAccessorOrder.NATIVE_ENDIANNESS);
         } else {
             UnsafeMemory.copyArrayToArray(this.buf, (int) (this.off + off),
                     buf.array(), buf.arrayOffset() + buf.position(), 1,
                     buf.remaining(), MemoryAccessorOrder.NATIVE_ENDIANNESS);
         }
+        buf.position(buf.position() + buf.remaining());
 	}
 
 	@Override
@@ -173,7 +174,16 @@ public class ByteArraySource extends RandomAccessSource {
 
 	@Override
 	public void unsafePut(long off, ByteBuffer buf) {
-
+        if (buf.isDirect()) {
+            UnsafeMemory.copyMemBlockToArray(UnsafeMemory.addressOfByteBuffer(buf) + buf.position(),
+                    this.buf, (int) (this.off + off), 1, buf.remaining(),
+                    MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        } else {
+            UnsafeMemory.copyArrayToArray(buf.array(), buf.arrayOffset() + buf.position(),
+                    this.buf, (int) (this.off + off), 1, buf.remaining(),
+                    MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        }
+        buf.position(buf.position() + buf.remaining());
 	}
 
 	@Override

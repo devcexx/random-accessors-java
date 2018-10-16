@@ -2,7 +2,9 @@ package me.devcexx.accessors;
 
 import org.junit.jupiter.api.Test;
 
+import java.nio.ByteBuffer;
 import java.util.Random;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -220,4 +222,118 @@ public abstract class AbstractRandomAccessorTest {
         assertThrows(IllegalStateException.class, () -> source.put(5, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
     }
 
+    private void testReadByteBuffer(Function<Integer, ByteBuffer> f) {
+        Random random = new Random();
+
+        byte[] data = new byte[1024];
+        ByteBuffer bb = f.apply(1024);
+        random.nextBytes(data);
+
+        RandomAccessSource source = mkSource(1024);
+
+        // #1: Test for data reading when offset is 0
+        source.put(0, data);
+        source.get(0, bb);
+
+        assertEquals(1024, bb.position());
+
+        byte[] finalData = new byte[1024];
+        bb.position(0);
+        bb.get(finalData);
+
+        assertArrayEquals(data, finalData);
+
+        bb.position(250);
+
+        data = new byte[10];
+        random.nextBytes(data);
+
+        // #2: Test for data reading when offset is > 0
+        source.put(50, data);
+        source.get(50, bb);
+
+        finalData = new byte[10];
+
+        bb.position(250);
+        bb.get(finalData);
+
+        assertArrayEquals(data, finalData);
+    }
+
+    private void testWriteByteBuffer(Function<Integer, ByteBuffer> f) {
+        Random random = new Random();
+
+        byte[] data = new byte[1024];
+        ByteBuffer bb = f.apply(1024);
+        random.nextBytes(data);
+
+        RandomAccessSource source = mkSource(1024);
+
+        // #1: Test for data reading when offset is 0
+        bb.mark();
+        bb.put(data);
+        bb.reset();
+
+        source.put(0, bb);
+
+        assertEquals(1024, bb.position());
+
+        byte[] finalData = new byte[1024];
+        source.get(0, finalData);
+
+        assertArrayEquals(data, finalData);
+
+        bb.position(250);
+
+        data = new byte[10];
+        random.nextBytes(data);
+
+        // #2: Test for data reading when offset is > 0
+        bb.mark();
+        bb.put(data);
+        bb.reset();
+
+        source.put(50, bb);
+
+        finalData = new byte[10];
+        source.get(50, finalData);
+
+        assertArrayEquals(data, finalData);
+    }
+
+    @Test
+    public void testReadDirectByteBuffer() {
+        testReadByteBuffer(ByteBuffer::allocateDirect);
+    }
+
+    @Test
+    public void testReadNonDirectByteBuffer() {
+        testReadByteBuffer(ByteBuffer::allocate);
+    }
+
+    @Test
+    public void testReadNonDirectOffsetedByteBuffer() {
+        testReadByteBuffer(integer -> {
+            byte[] b = new byte[integer + 512];
+            return ByteBuffer.wrap(b, 128, integer).slice();
+        });
+    }
+
+    @Test
+    public void testWriteDirectByteBuffer() {
+        testWriteByteBuffer(ByteBuffer::allocateDirect);
+    }
+
+    @Test
+    public void testWriteNonDirectByteBuffer() {
+        testWriteByteBuffer(ByteBuffer::allocate);
+    }
+
+    @Test
+    public void testWriteNonDirectOffsetedByteBuffer() {
+        testWriteByteBuffer(integer -> {
+            byte[] b = new byte[integer + 512];
+            return ByteBuffer.wrap(b, 128, integer).slice();
+        });
+    }
 }

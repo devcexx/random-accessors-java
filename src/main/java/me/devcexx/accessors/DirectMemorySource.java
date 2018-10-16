@@ -17,6 +17,7 @@
 package me.devcexx.accessors;
 
 import java.nio.ByteBuffer;
+import java.nio.channels.Channel;
 
 /**
  * Represents a memory block that can be directly read or written.
@@ -144,7 +145,7 @@ public class DirectMemorySource extends RandomAccessSource {
                     UnsafeMemory.addressOfByteBuffer(buf) + buf.position(),
                     buf.remaining());
         } else {
-            get(off, buf.array(), buf.position(), buf.remaining());
+            get(off, buf.array(), buf.arrayOffset() + buf.position(), buf.remaining());
         }
         buf.position(buf.position() + buf.remaining());
     }
@@ -226,7 +227,7 @@ public class DirectMemorySource extends RandomAccessSource {
                     address + off,
                     buf.remaining());
         } else {
-            put(off, buf.array(), buf.position(), buf.remaining());
+            put(off, buf.array(), buf.arrayOffset() + buf.position(), buf.remaining());
         }
         buf.position(buf.position() + buf.remaining());
     }
