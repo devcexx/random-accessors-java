@@ -73,32 +73,32 @@ public class SlicedSource extends RandomAccessSource {
     }
 
     @Override
-    public short unsafeGetShort(long off, MemoryAccessorOrder order) {
+    public short unsafeGetShort(long off, DataOrder order) {
         return source.unsafeGetShort(pf + off, order);
     }
 
     @Override
-    public char unsafeGetChar(long off, MemoryAccessorOrder order) {
+    public char unsafeGetChar(long off, DataOrder order) {
         return source.unsafeGetChar(pf + off, order);
     }
 
     @Override
-    public int unsafeGetInt(long off, MemoryAccessorOrder order) {
+    public int unsafeGetInt(long off, DataOrder order) {
         return source.unsafeGetInt(pf + off, order);
     }
 
     @Override
-    public long unsafeGetLong(long off, MemoryAccessorOrder order) {
+    public long unsafeGetLong(long off, DataOrder order) {
         return source.unsafeGetLong(pf + off, order);
     }
 
     @Override
-    public float unsafeGetFloat(long off, MemoryAccessorOrder order) {
+    public float unsafeGetFloat(long off, DataOrder order) {
         return source.unsafeGetFloat(pf + off, order);
     }
 
     @Override
-    public double unsafeGetDouble(long off, MemoryAccessorOrder order) {
+    public double unsafeGetDouble(long off, DataOrder order) {
         return source.unsafeGetDouble(pf + off, order);
     }
 
@@ -113,32 +113,32 @@ public class SlicedSource extends RandomAccessSource {
     }
 
     @Override
-    public void unsafeGet(long off, char[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, char[] buffer, int dstOff, int len, DataOrder order) {
         source.unsafeGet(pf + off, buffer, dstOff, len, order);
     }
 
     @Override
-    public void unsafeGet(long off, short[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, short[] buffer, int dstOff, int len, DataOrder order) {
         source.unsafeGet(pf + off, buffer, dstOff, len, order);
     }
 
     @Override
-    public void unsafeGet(long off, int[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, int[] buffer, int dstOff, int len, DataOrder order) {
         source.unsafeGet(pf + off, buffer, dstOff, len, order);
     }
 
     @Override
-    public void unsafeGet(long off, long[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, long[] buffer, int dstOff, int len, DataOrder order) {
         source.unsafeGet(pf + off, buffer, dstOff, len, order);
     }
 
     @Override
-    public void unsafeGet(long off, float[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, float[] buffer, int dstOff, int len, DataOrder order) {
         source.unsafeGet(pf + off, buffer, dstOff, len, order);
     }
 
     @Override
-    public void unsafeGet(long off, double[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, double[] buffer, int dstOff, int len, DataOrder order) {
         source.unsafeGet(pf + off, buffer, dstOff, len, order);
     }
 
@@ -148,32 +148,32 @@ public class SlicedSource extends RandomAccessSource {
     }
 
     @Override
-    public void unsafePut(long off, short value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, short value, DataOrder order) {
         source.unsafePut(pf + off, value, order);
     }
 
     @Override
-    public void unsafePut(long off, char value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, char value, DataOrder order) {
         source.unsafePut(pf + off, value, order);
     }
 
     @Override
-    public void unsafePut(long off, int value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, int value, DataOrder order) {
         source.unsafePut(pf + off, value, order);
     }
 
     @Override
-    public void unsafePut(long off, long value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, long value, DataOrder order) {
         source.unsafePut(pf + off, value, order);
     }
 
     @Override
-    public void unsafePut(long off, float value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, float value, DataOrder order) {
         source.unsafePut(pf + off, value, order);
     }
 
     @Override
-    public void unsafePut(long off, double value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, double value, DataOrder order) {
         source.unsafePut(pf + off, value, order);
     }
 
@@ -188,32 +188,32 @@ public class SlicedSource extends RandomAccessSource {
     }
 
     @Override
-    public void unsafePut(long off, short[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, short[] buffer, int srcOff, int len, DataOrder order) {
         source.unsafePut(pf + off, buffer, srcOff, len, order);
     }
 
     @Override
-    public void unsafePut(long off, char[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, char[] buffer, int srcOff, int len, DataOrder order) {
         source.unsafePut(pf + off, buffer, srcOff, len, order);
     }
 
     @Override
-    public void unsafePut(long off, int[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, int[] buffer, int srcOff, int len, DataOrder order) {
         source.unsafePut(pf + off, buffer, srcOff, len, order);
     }
 
     @Override
-    public void unsafePut(long off, long[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, long[] buffer, int srcOff, int len, DataOrder order) {
         source.unsafePut(pf + off, buffer, srcOff, len, order);
     }
 
     @Override
-    public void unsafePut(long off, float[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, float[] buffer, int srcOff, int len, DataOrder order) {
         source.unsafePut(pf + off, buffer, srcOff, len, order);
     }
 
     @Override
-    public void unsafePut(long off, double[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, double[] buffer, int srcOff, int len, DataOrder order) {
         source.unsafePut(pf + off, buffer, srcOff, len, order);
     }
 }

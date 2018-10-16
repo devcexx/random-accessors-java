@@ -12,7 +12,7 @@ public abstract class AbstractRandomAccessorTest {
 
     protected abstract RandomAccessSource mkSource(long size);
 
-    public void testScalars(MemoryAccessorOrder order) {
+    public void testScalars(DataOrder order) {
         RandomAccessSource source = mkSource(29);
         Random random = new Random();
 
@@ -44,7 +44,7 @@ public abstract class AbstractRandomAccessorTest {
     }
 
 
-    private void testBuffers(MemoryAccessorOrder order) {
+    private void testBuffers(DataOrder order) {
         RandomAccessSource source = mkSource(145);
 
         Random random = new Random();
@@ -117,21 +117,21 @@ public abstract class AbstractRandomAccessorTest {
 
     @Test
     public void testNativeEndiannessScalars() {
-        testScalars(MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        testScalars(DataOrder.NATIVE_ORDER);
     }
 
     @Test
     public void testNonNativeEndiannessScalars() {
-        testScalars(MemoryAccessorOrder.NATIVE_ENDIANNESS.opposite());
+        testScalars(DataOrder.NATIVE_ORDER.opposite());
     }
 
     @Test
     public void testNativeEndiannessBuffers() {
-        testBuffers(MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        testBuffers(DataOrder.NATIVE_ORDER);
     }
     @Test
     public void testNonNativeEndiannessBuffers() {
-        testBuffers(MemoryAccessorOrder.NATIVE_ENDIANNESS.opposite());
+        testBuffers(DataOrder.NATIVE_ORDER.opposite());
     }
 
     @Test
@@ -159,51 +159,51 @@ public abstract class AbstractRandomAccessorTest {
         assertThrows(IllegalArgumentException.class, () -> source.put(128, (byte) 0));
         assertDoesNotThrow(() -> source.put(127, (byte) 0));
 
-        assertThrows(IllegalArgumentException.class, () -> source.put(129, (char) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(128, (char) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(127, (char) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertDoesNotThrow(() -> source.put(126, (char) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
+        assertThrows(IllegalArgumentException.class, () -> source.put(129, (char) 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(128, (char) 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(127, (char) 0, DataOrder.NATIVE_ORDER));
+        assertDoesNotThrow(() -> source.put(126, (char) 0, DataOrder.NATIVE_ORDER));
 
-        assertThrows(IllegalArgumentException.class, () -> source.put(129, (short) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(128, (short) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(127, (short) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertDoesNotThrow(() -> source.put(126, (short) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
+        assertThrows(IllegalArgumentException.class, () -> source.put(129, (short) 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(128, (short) 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(127, (short) 0, DataOrder.NATIVE_ORDER));
+        assertDoesNotThrow(() -> source.put(126, (short) 0, DataOrder.NATIVE_ORDER));
 
-        assertThrows(IllegalArgumentException.class, () -> source.put(129, 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(128, 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(127, 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(126, 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(125, 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertDoesNotThrow(() -> source.put(124, 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
+        assertThrows(IllegalArgumentException.class, () -> source.put(129, 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(128, 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(127, 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(126, 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(125, 0, DataOrder.NATIVE_ORDER));
+        assertDoesNotThrow(() -> source.put(124, 0, DataOrder.NATIVE_ORDER));
 
-        assertThrows(IllegalArgumentException.class, () -> source.put(129, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(128, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(127, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(126, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(125, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(124, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(123, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(122, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(121, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertDoesNotThrow(() -> source.put(120, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
+        assertThrows(IllegalArgumentException.class, () -> source.put(129, 0L, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(128, 0L, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(127, 0L, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(126, 0L, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(125, 0L, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(124, 0L, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(123, 0L, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(122, 0L, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(121, 0L, DataOrder.NATIVE_ORDER));
+        assertDoesNotThrow(() -> source.put(120, 0L, DataOrder.NATIVE_ORDER));
 
-        assertThrows(IllegalArgumentException.class, () -> source.put(129, 0.0f, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(128, 0.0f, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(127, 0.0f, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(126, 0.0f, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(125, 0.0f, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertDoesNotThrow(() -> source.put(124, 0.0f, MemoryAccessorOrder.NATIVE_ENDIANNESS));
+        assertThrows(IllegalArgumentException.class, () -> source.put(129, 0.0f, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(128, 0.0f, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(127, 0.0f, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(126, 0.0f, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(125, 0.0f, DataOrder.NATIVE_ORDER));
+        assertDoesNotThrow(() -> source.put(124, 0.0f, DataOrder.NATIVE_ORDER));
 
-        assertThrows(IllegalArgumentException.class, () -> source.put(129, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(128, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(127, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(126, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(125, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(124, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(123, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(122, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> source.put(121, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertDoesNotThrow(() -> source.put(120, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
+        assertThrows(IllegalArgumentException.class, () -> source.put(129, 0.0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(128, 0.0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(127, 0.0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(126, 0.0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(125, 0.0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(124, 0.0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(123, 0.0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(122, 0.0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> source.put(121, 0.0, DataOrder.NATIVE_ORDER));
+        assertDoesNotThrow(() -> source.put(120, 0.0, DataOrder.NATIVE_ORDER));
     }
 
     @Test
@@ -214,12 +214,12 @@ public abstract class AbstractRandomAccessorTest {
 
         assertThrows(IllegalStateException.class, () -> source.put(5, (byte) 0));
         assertThrows(IllegalStateException.class, () -> source.put(5, (byte) 0));
-        assertThrows(IllegalStateException.class, () -> source.put(5, (char) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalStateException.class, () -> source.put(5, (short) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalStateException.class, () -> source.put(5, 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalStateException.class, () -> source.put(5, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalStateException.class, () -> source.put(5, 0.0f, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalStateException.class, () -> source.put(5, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
+        assertThrows(IllegalStateException.class, () -> source.put(5, (char) 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalStateException.class, () -> source.put(5, (short) 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalStateException.class, () -> source.put(5, 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalStateException.class, () -> source.put(5, 0L, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalStateException.class, () -> source.put(5, 0.0f, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalStateException.class, () -> source.put(5, 0.0, DataOrder.NATIVE_ORDER));
     }
 
     private void testReadByteBuffer(Function<Integer, ByteBuffer> f) {

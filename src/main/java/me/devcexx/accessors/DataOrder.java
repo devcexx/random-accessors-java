@@ -20,7 +20,7 @@ import java.nio.ByteOrder;
 /**
  * Represents the order of the bytes in a byte buffer.
  */
-public enum MemoryAccessorOrder {
+public enum DataOrder {
 
     /**
      * Represents the Big Endian order, where the most significant bytes of a number are placed at the left.
@@ -35,7 +35,7 @@ public enum MemoryAccessorOrder {
     /**
      * The native endianness of the current machine.
      */
-    public static final MemoryAccessorOrder NATIVE_ENDIANNESS =
+    public static final DataOrder NATIVE_ORDER =
             ByteOrder.nativeOrder() == ByteOrder.BIG_ENDIAN ? BIG_ENDIAN : LITTLE_ENDIAN;
 
     /**
@@ -48,7 +48,7 @@ public enum MemoryAccessorOrder {
      */
     public final ByteOrder nioOrder;
 
-    MemoryAccessorOrder(int id, ByteOrder order) {
+    DataOrder(int id, ByteOrder order) {
         this.id = id;
         this.nioOrder = order;
     }
@@ -56,18 +56,18 @@ public enum MemoryAccessorOrder {
     /**
      * Returns the opposite byte order to the actual.
      */
-    public MemoryAccessorOrder opposite() {
+    public DataOrder opposite() {
         return this == BIG_ENDIAN ? LITTLE_ENDIAN : BIG_ENDIAN;
     }
 
     public boolean isNative() {
-        return this == NATIVE_ENDIANNESS;
+        return this == NATIVE_ORDER;
     }
 
     /**
      * Returns the buffer order that are linked to the specified java nio byte order.
      */
-    public static MemoryAccessorOrder fromNioOrder(ByteOrder order) {
+    public static DataOrder fromNioOrder(ByteOrder order) {
         if (order == null) throw new NullPointerException();
 
         if (order == ByteOrder.BIG_ENDIAN) return BIG_ENDIAN;

@@ -51,32 +51,32 @@ public class ReadOnlyMemorySource extends SlicedSource {
     }
 
     @Override
-    public void unsafePut(long off, short value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, short value, DataOrder order) {
         raiseReadOnlySource();
     }
 
     @Override
-    public void unsafePut(long off, char value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, char value, DataOrder order) {
         raiseReadOnlySource();
     }
 
     @Override
-    public void unsafePut(long off, int value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, int value, DataOrder order) {
         raiseReadOnlySource();
     }
 
     @Override
-    public void unsafePut(long off, long value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, long value, DataOrder order) {
         raiseReadOnlySource();
     }
 
     @Override
-    public void unsafePut(long off, float value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, float value, DataOrder order) {
         raiseReadOnlySource();
     }
 
     @Override
-    public void unsafePut(long off, double value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, double value, DataOrder order) {
         raiseReadOnlySource();
     }
 
@@ -91,32 +91,32 @@ public class ReadOnlyMemorySource extends SlicedSource {
     }
 
     @Override
-    public void unsafePut(long off, short[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, short[] buffer, int srcOff, int len, DataOrder order) {
         raiseReadOnlySource();
     }
 
     @Override
-    public void unsafePut(long off, char[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, char[] buffer, int srcOff, int len, DataOrder order) {
         raiseReadOnlySource();
     }
 
     @Override
-    public void unsafePut(long off, int[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, int[] buffer, int srcOff, int len, DataOrder order) {
         raiseReadOnlySource();
     }
 
     @Override
-    public void unsafePut(long off, long[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, long[] buffer, int srcOff, int len, DataOrder order) {
         raiseReadOnlySource();
     }
 
     @Override
-    public void unsafePut(long off, float[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, float[] buffer, int srcOff, int len, DataOrder order) {
         raiseReadOnlySource();
     }
 
     @Override
-    public void unsafePut(long off, double[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, double[] buffer, int srcOff, int len, DataOrder order) {
         raiseReadOnlySource();
     }
 }

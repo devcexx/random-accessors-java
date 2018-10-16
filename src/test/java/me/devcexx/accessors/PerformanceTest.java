@@ -17,7 +17,6 @@
 package me.devcexx.accessors;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -54,7 +53,7 @@ public class PerformanceTest {
 
     @Test
     public void testOffHeapNativeEndiannessPerfomance() {
-        RandomAccessor buf = new RandomAccessor(Sources.alloc(BUFFER_SIZE_IN_MB * MEGABYTE), MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        RandomAccessor buf = new RandomAccessor(Sources.alloc(BUFFER_SIZE_IN_MB * MEGABYTE), DataOrder.NATIVE_ORDER);
         double megasPerSecond = performTest(new OffHeapWritableBuffer(buf));
         printResults("Off Heap buffer with native endianness (" + buf.order() + ")", megasPerSecond);
 
@@ -64,7 +63,7 @@ public class PerformanceTest {
 
     @Test
     public void testOffHeapNonNativeEndiannessPerfomance() {
-        RandomAccessor buf = new RandomAccessor(Sources.alloc(BUFFER_SIZE_IN_MB * MEGABYTE), MemoryAccessorOrder.NATIVE_ENDIANNESS.opposite());
+        RandomAccessor buf = new RandomAccessor(Sources.alloc(BUFFER_SIZE_IN_MB * MEGABYTE), DataOrder.NATIVE_ORDER.opposite());
         double megasPerSecond = performTest(new OffHeapWritableBuffer(buf));
         printResults("Off Heap buffer with non-native endianness (" + buf.order() + ")", megasPerSecond);
 
@@ -75,7 +74,7 @@ public class PerformanceTest {
     @Test
     public void testDirectNativeEndiannessPerformance() {
         ByteBuffer buf = ByteBuffer.allocateDirect(BUFFER_SIZE_IN_MB * MEGABYTE);
-        buf.order(MemoryAccessorOrder.NATIVE_ENDIANNESS.nioOrder);
+        buf.order(DataOrder.NATIVE_ORDER.nioOrder);
         double megasPerSecond = performTest(new JavaNioWritableBuffer(buf));
         printResults("Direct buffer with native endianness", megasPerSecond);
     }
@@ -84,7 +83,7 @@ public class PerformanceTest {
     @Test
     public void testDirectNonNativeEndiannessPerformance() {
         ByteBuffer buf = ByteBuffer.allocateDirect(BUFFER_SIZE_IN_MB * MEGABYTE);
-        buf.order(MemoryAccessorOrder.NATIVE_ENDIANNESS.opposite().nioOrder);
+        buf.order(DataOrder.NATIVE_ORDER.opposite().nioOrder);
         double megasPerSecond = performTest(new JavaNioWritableBuffer(buf));
         printResults("Direct buffer with native endianness", megasPerSecond);
     }
@@ -94,7 +93,7 @@ public class PerformanceTest {
         RandomAccessSource buf = Sources.alloc(BUFFER_SIZE_IN_MB * MEGABYTE);
 
         ByteBuffer accessor = buf.byteBuffer();
-        accessor.order(MemoryAccessorOrder.NATIVE_ENDIANNESS.nioOrder);
+        accessor.order(DataOrder.NATIVE_ORDER.nioOrder);
 
         double megasPerSecond = performTest(new JavaNioWritableBuffer(accessor));
         printResults("Off heap buffer accessed through NIO ByteBuffer with native endianness", megasPerSecond);
@@ -107,7 +106,7 @@ public class PerformanceTest {
         RandomAccessSource buf = Sources.alloc(BUFFER_SIZE_IN_MB * MEGABYTE);
 
         ByteBuffer accessor = buf.byteBuffer();
-        accessor.order(MemoryAccessorOrder.NATIVE_ENDIANNESS.opposite().nioOrder);
+        accessor.order(DataOrder.NATIVE_ORDER.opposite().nioOrder);
 
         double megasPerSecond = performTest(new JavaNioWritableBuffer(accessor));
         printResults("Off heap buffer accessed through NIO ByteBuffer with non native endianness", megasPerSecond);

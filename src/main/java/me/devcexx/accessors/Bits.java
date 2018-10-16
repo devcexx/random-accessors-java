@@ -33,7 +33,7 @@ public class Bits {
      * @param order the order to use to decode the data.
      * @return the decoded value.
      */
-    public static short decodeShort(byte b0, byte b1, MemoryAccessorOrder order) {
+    public static short decodeShort(byte b0, byte b1, DataOrder order) {
         switch (order) {
             case BIG_ENDIAN:
                 return (short) (((b0 & 0xff) << 8) | (b1 & 0xff));
@@ -51,7 +51,7 @@ public class Bits {
      * @param order the order to use to decode the data.
      * @return the decoded value.
      */
-    public static char decodeChar(byte b0, byte b1, MemoryAccessorOrder order) {
+    public static char decodeChar(byte b0, byte b1, DataOrder order) {
         switch (order) {
             case BIG_ENDIAN:
                 return (char) (((b0 & 0xff) << 8) | (b1 & 0xff));
@@ -71,7 +71,7 @@ public class Bits {
      * @param order the order to use to decode the data.
      * @return the decoded value.
      */
-    public static int decodeInt(byte b0, byte b1, byte b2, byte b3, MemoryAccessorOrder order) {
+    public static int decodeInt(byte b0, byte b1, byte b2, byte b3, DataOrder order) {
         switch (order) {
             case BIG_ENDIAN:
                 return ((b0 & 0xff) << 24) | ((b1 & 0xff) << 16) | ((b2 & 0xff) << 8) | (b3 & 0xff);
@@ -96,7 +96,7 @@ public class Bits {
      */
     public static long decodeLong(byte b0, byte b1, byte b2,
                                  byte b3, byte b4, byte b5,
-                                 byte b6, byte b7, MemoryAccessorOrder order) {
+                                 byte b6, byte b7, DataOrder order) {
         switch (order) {
             case BIG_ENDIAN:
                 return (((long)(b0 & 0xff) << 56) |
@@ -130,7 +130,7 @@ public class Bits {
      * @param order the order to use to decode the data.
      * @return the decoded value.
      */
-    public static float decodeFloat(byte b0, byte b1, byte b2, byte b3, MemoryAccessorOrder order) {
+    public static float decodeFloat(byte b0, byte b1, byte b2, byte b3, DataOrder order) {
         return Float.intBitsToFloat(decodeInt(b0, b1, b2, b3, order));
     }
 
@@ -148,7 +148,7 @@ public class Bits {
      */
     public static double decodeDouble(byte b0, byte b1, byte b2,
                                      byte b3, byte b4, byte b5,
-                                     byte b6, byte b7, MemoryAccessorOrder order) {
+                                     byte b6, byte b7, DataOrder order) {
         return Double.longBitsToDouble(decodeLong(b0, b1, b2, b3, b4, b5, b6, b7, order));
     }
 
@@ -160,7 +160,7 @@ public class Bits {
      *            will be written.
      * @param order the order that will be used to encode the data.
      */
-    public static void encodeShort(short x, byte[] b, int off, MemoryAccessorOrder order) {
+    public static void encodeShort(short x, byte[] b, int off, DataOrder order) {
         switch (order) {
             case BIG_ENDIAN:
                 b[off] = (byte) ((x >> 8) & 0xff);
@@ -181,7 +181,7 @@ public class Bits {
      *            will be written.
      * @param order the order that will be used to encode the data.
      */
-    public static void encodeChar(char x, byte[] b, int off, MemoryAccessorOrder order) {
+    public static void encodeChar(char x, byte[] b, int off, DataOrder order) {
         switch (order) {
             case BIG_ENDIAN:
                 b[off] = (byte) ((x >> 8) & 0xff);
@@ -202,7 +202,7 @@ public class Bits {
      *            will be written.
      * @param order the order that will be used to encode the data.
      */
-    public static void encodeInt(int x, byte[] b, int off, MemoryAccessorOrder order) {
+    public static void encodeInt(int x, byte[] b, int off, DataOrder order) {
         switch (order) {
             case BIG_ENDIAN:
                 b[off] = (byte) ((x >> 24) & 0xff);
@@ -227,7 +227,7 @@ public class Bits {
      *            will be written.
      * @param order the order that will be used to encode the data.
      */
-    public static void encodeLong(long x, byte[] b, int off, MemoryAccessorOrder order) {
+    public static void encodeLong(long x, byte[] b, int off, DataOrder order) {
         switch (order) {
             case BIG_ENDIAN:
                 b[off] = (byte) ((x >> 56) & 0xff);
@@ -260,7 +260,7 @@ public class Bits {
      *            will be written.
      * @param order the order that will be used to encode the data.
      */
-    public static void encodeFloat(float x, byte[] b, int off, MemoryAccessorOrder order) {
+    public static void encodeFloat(float x, byte[] b, int off, DataOrder order) {
         encodeInt(Float.floatToIntBits(x), b, off, order);
     }
 
@@ -272,7 +272,7 @@ public class Bits {
      *            will be written.
      * @param order the order that will be used to encode the data.
      */
-    public static void encodeDouble(double x, byte[] b, int off, MemoryAccessorOrder order) {
+    public static void encodeDouble(double x, byte[] b, int off, DataOrder order) {
         encodeLong(Double.doubleToLongBits(x), b, off, order);
     }
 }

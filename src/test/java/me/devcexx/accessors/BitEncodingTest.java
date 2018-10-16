@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BitEncodingTest {
-    private void testShortEncode(short x, MemoryAccessorOrder order) {
+    private void testShortEncode(short x, DataOrder order) {
         byte[] b = new byte[2];
         Bits.encodeShort(x, b, 0, order);
 
@@ -32,7 +32,7 @@ public class BitEncodingTest {
         assertArrayEquals(b1, b);
     }
 
-    private void testCharEncode(char x, MemoryAccessorOrder order) {
+    private void testCharEncode(char x, DataOrder order) {
         byte[] b = new byte[2];
         Bits.encodeChar(x, b, 0, order);
 
@@ -42,7 +42,7 @@ public class BitEncodingTest {
         assertArrayEquals(b1, b);
     }
 
-    private void testIntEncode(int x, MemoryAccessorOrder order) {
+    private void testIntEncode(int x, DataOrder order) {
         byte[] b = new byte[4];
         Bits.encodeInt(x, b, 0, order);
 
@@ -52,7 +52,7 @@ public class BitEncodingTest {
         assertArrayEquals(b1, b);
     }
 
-    private void testLongEncode(long x, MemoryAccessorOrder order) {
+    private void testLongEncode(long x, DataOrder order) {
         byte[] b = new byte[8];
         Bits.encodeLong(x, b, 0, order);
 
@@ -62,7 +62,7 @@ public class BitEncodingTest {
         assertArrayEquals(b1, b);
     }
 
-    private void testFloatEncode(float x, MemoryAccessorOrder order) {
+    private void testFloatEncode(float x, DataOrder order) {
         byte[] b = new byte[4];
         Bits.encodeFloat(x, b, 0, order);
 
@@ -72,7 +72,7 @@ public class BitEncodingTest {
         assertArrayEquals(b1, b);
     }
 
-    private void testDoubleEncode(double x, MemoryAccessorOrder order) {
+    private void testDoubleEncode(double x, DataOrder order) {
         byte[] b = new byte[8];
         Bits.encodeDouble(x, b, 0, order);
 
@@ -82,42 +82,42 @@ public class BitEncodingTest {
         assertArrayEquals(b1, b);
     }
 
-    private void testShortDecode(byte[] data, MemoryAccessorOrder order) {
+    private void testShortDecode(byte[] data, DataOrder order) {
         short x = Bits.decodeShort(data[0], data[1], order);
         short x1 = ByteBuffer.wrap(data).order(order.nioOrder).getShort();
 
         assertEquals(x1, x);
     }
 
-    private void testCharDecode(byte[] data, MemoryAccessorOrder order) {
+    private void testCharDecode(byte[] data, DataOrder order) {
         char x = Bits.decodeChar(data[0], data[1], order);
         char x1 = ByteBuffer.wrap(data).order(order.nioOrder).getChar();
 
         assertEquals(x1, x);
     }
 
-    private void testIntDecode(byte[] data, MemoryAccessorOrder order) {
+    private void testIntDecode(byte[] data, DataOrder order) {
         int x = Bits.decodeInt(data[0], data[1], data[2], data[3], order);
         int x1 = ByteBuffer.wrap(data).order(order.nioOrder).getInt();
 
         assertEquals(x1, x);
     }
 
-    private void testLongDecode(byte[] data, MemoryAccessorOrder order) {
+    private void testLongDecode(byte[] data, DataOrder order) {
         long x = Bits.decodeShort(data[0], data[1], order);
         long x1 = ByteBuffer.wrap(data).order(order.nioOrder).getShort();
 
         assertEquals(x1, x);
     }
 
-    private void testFloatDecode(byte[] data, MemoryAccessorOrder order) {
+    private void testFloatDecode(byte[] data, DataOrder order) {
         float x = Bits.decodeFloat(data[0], data[1], data[2], data[3], order);
         float x1 = ByteBuffer.wrap(data).order(order.nioOrder).getFloat();
 
         assertEquals(x1, x, 0.1);
     }
 
-    private void testDoubleDecode(byte[] data, MemoryAccessorOrder order) {
+    private void testDoubleDecode(byte[] data, DataOrder order) {
         double x = Bits.decodeDouble(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], order);
         double x1 = ByteBuffer.wrap(data).order(order.nioOrder).getDouble();
 
@@ -126,7 +126,7 @@ public class BitEncodingTest {
 
     @Test
     public void testEncodingShort() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing short encoding in " + order);
             testShortEncode((short) 0, order);
             testShortEncode((short) -2000, order);
@@ -142,7 +142,7 @@ public class BitEncodingTest {
 
     @Test
     public void testEncodingChar() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing char encoding in " + order);
             testCharEncode((char) 0, order);
             testCharEncode((char) 2000, order);
@@ -155,7 +155,7 @@ public class BitEncodingTest {
 
     @Test
     public void testEncodingInt() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing int encoding in " + order);
             testIntEncode(0, order);
             testIntEncode(100, order);
@@ -173,7 +173,7 @@ public class BitEncodingTest {
 
     @Test
     public void testEncodingLong() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing long encoding in " + order);
             testLongEncode(0, order);
             testLongEncode(100, order);
@@ -193,7 +193,7 @@ public class BitEncodingTest {
 
     @Test
     public void testEncodingFloat() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing float encoding in " + order);
             testFloatEncode(0.0f, order);
             testFloatEncode(123.45678f, order);
@@ -210,7 +210,7 @@ public class BitEncodingTest {
 
     @Test
     public void testEncodingDouble() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing double encoding in " + order);
             testDoubleEncode(0.0f, order);
             testDoubleEncode(123.45678f, order);
@@ -227,7 +227,7 @@ public class BitEncodingTest {
 
     @Test
     public void testDecodingShort() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing short decoding in " + order);
             testShortDecode(new byte[] {0, 0}, order);
             testShortDecode(new byte[] {0, -1}, order);
@@ -239,7 +239,7 @@ public class BitEncodingTest {
 
     @Test
     public void testDecodingChar() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing short decoding in " + order);
             testCharDecode(new byte[] {0, 0}, order);
             testCharDecode(new byte[] {0, -1}, order);
@@ -251,7 +251,7 @@ public class BitEncodingTest {
 
     @Test
     public void testDecodingInt() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing int decoding in " + order);
             testIntDecode(new byte[] {0, 0, 0, 0}, order);
             testIntDecode(new byte[] {0, -1, -1, -1}, order);
@@ -263,7 +263,7 @@ public class BitEncodingTest {
 
     @Test
     public void testDecodingLong() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing long decoding in " + order);
             testLongDecode(new byte[] {0, 0, 0, 0, 0, 0, 0}, order);
             testLongDecode(new byte[] {0, -1, -1, -1, -1, 56, 6, 1}, order);
@@ -275,7 +275,7 @@ public class BitEncodingTest {
 
     @Test
     public void testDecodingFloat() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing float decoding in " + order);
             testFloatDecode(new byte[] {0, 0, 0, 0}, order);
             testFloatDecode(new byte[] {0, -1, -1, -1}, order);
@@ -287,7 +287,7 @@ public class BitEncodingTest {
 
     @Test
     public void testDecodingDouble() {
-        for (MemoryAccessorOrder order : MemoryAccessorOrder.values()) {
+        for (DataOrder order : DataOrder.values()) {
             System.out.println("Testing double decoding in " + order);
             testDoubleDecode(new byte[] {0, 0, 0, 0, 0, 0, 0, 0}, order);
             testDoubleDecode(new byte[] {0, -1, -1, -1, -1, 56, 6, 1}, order);

@@ -71,7 +71,7 @@ public class Unsafe {
         return UNSAFE.getByte(address);
     }
 
-    public static short getShort(long address, MemoryAccessorOrder order) {
+    public static short getShort(long address, DataOrder order) {
         short s = UNSAFE.getShort(address);
         if (!order.isNative()) {
             s = Short.reverseBytes(s);
@@ -79,7 +79,7 @@ public class Unsafe {
         return s;
     }
 
-    public static char getChar(long address, MemoryAccessorOrder order) {
+    public static char getChar(long address, DataOrder order) {
         char c = UNSAFE.getChar(address);
         if (!order.isNative()) {
             c = Character.reverseBytes(c);
@@ -87,7 +87,7 @@ public class Unsafe {
         return c;
     }
 
-    public static int getInt(long address, MemoryAccessorOrder order) {
+    public static int getInt(long address, DataOrder order) {
         int i = UNSAFE.getInt(address);
         if (!order.isNative()) {
             i = Integer.reverseBytes(i);
@@ -95,7 +95,7 @@ public class Unsafe {
         return i;
     }
 
-    public static long getLong(long address, MemoryAccessorOrder order) {
+    public static long getLong(long address, DataOrder order) {
         long l = UNSAFE.getLong(address);
         if (!order.isNative()) {
             l = Long.reverseBytes(l);
@@ -103,7 +103,7 @@ public class Unsafe {
         return l;
     }
 
-    public static float getFloat(long address, MemoryAccessorOrder order) {
+    public static float getFloat(long address, DataOrder order) {
         if (order.isNative()) {
             return UNSAFE.getFloat(address);
         } else {
@@ -113,7 +113,7 @@ public class Unsafe {
         }
     }
 
-    public static double getDouble(long address, MemoryAccessorOrder order) {
+    public static double getDouble(long address, DataOrder order) {
         if (order.isNative()) {
             return UNSAFE.getDouble(address);
         } else {
@@ -131,35 +131,35 @@ public class Unsafe {
         UNSAFE.putByte(address, value);
     }
 
-    public static void putShort(long address, short value, MemoryAccessorOrder order) {
+    public static void putShort(long address, short value, DataOrder order) {
         if (!order.isNative()) {
             value = Short.reverseBytes(value);
         }
         UNSAFE.putShort(address, value);
     }
 
-    public static void putChar(long address, char value, MemoryAccessorOrder order) {
+    public static void putChar(long address, char value, DataOrder order) {
         if (!order.isNative()) {
             value = Character.reverseBytes(value);
         }
         UNSAFE.putChar(address, value);
     }
 
-    public static void putInt(long address, int value, MemoryAccessorOrder order) {
+    public static void putInt(long address, int value, DataOrder order) {
         if (!order.isNative()) {
             value = Integer.reverseBytes(value);
         }
         UNSAFE.putInt(address, value);
     }
 
-    public static void putLong(long address, long value, MemoryAccessorOrder order) {
+    public static void putLong(long address, long value, DataOrder order) {
         if (!order.isNative()) {
             value = Long.reverseBytes(value);
         }
         UNSAFE.putLong(address, value);
     }
 
-    public static void putFloat(long address, float value, MemoryAccessorOrder order) {
+    public static void putFloat(long address, float value, DataOrder order) {
         if (order.isNative()) {
             UNSAFE.putFloat(address, value);
         } else {
@@ -167,7 +167,7 @@ public class Unsafe {
         }
     }
 
-    public static void putDouble(long address, double value, MemoryAccessorOrder order) {
+    public static void putDouble(long address, double value, DataOrder order) {
         if (order.isNative()) {
             UNSAFE.putDouble(address, value);
         } else {
@@ -176,16 +176,16 @@ public class Unsafe {
     }
 
     public static void copyArrayToArray(Object srcArray, int srcOff, Object dstArray,
-                                        int dstOff, int dataSize, int count, MemoryAccessorOrder order) {
+                                        int dstOff, int dataSize, int count, DataOrder order) {
         AccessorNatives.copyMemory(srcArray, 0, srcOff, dstArray, 0,
                 dstOff, dataSize, count,
-                MemoryAccessorOrder.NATIVE_ENDIANNESS.id, order.id);
+                DataOrder.NATIVE_ORDER.id, order.id);
     }
 
     public static void copyMemBlockToArray(long srcAddr, Object dstArray, int dstOff,
-                                           int dataSize, long count, MemoryAccessorOrder order) {
+                                           int dataSize, long count, DataOrder order) {
         AccessorNatives.copyMemory(null, srcAddr, 0, dstArray, 0, dstOff * dataSize,
-                dataSize, count, order.id, MemoryAccessorOrder.NATIVE_ENDIANNESS.id);
+                dataSize, count, order.id, DataOrder.NATIVE_ORDER.id);
     }
 
     public static void copyMemBlockToAddress(long srcAddr, long dstAddr, long count) {
@@ -193,9 +193,9 @@ public class Unsafe {
     }
 
     public static void copyArrayToAddress(Object srcArray, int srcOff, long dstAddress,
-                                          int dataSize, long count, MemoryAccessorOrder order) {
+                                          int dataSize, long count, DataOrder order) {
         AccessorNatives.copyMemory(srcArray, 0, dataSize * srcOff, null, dstAddress,
-                0, dataSize, count, MemoryAccessorOrder.NATIVE_ENDIANNESS.id, order.id);
+                0, dataSize, count, DataOrder.NATIVE_ORDER.id, order.id);
     }
 
     public static long alloc(long size) {

@@ -98,22 +98,22 @@ public class RandomAccessorTest {
         //Check the calls of the style: #put(T, order)
         //(should increment the position of the accessor by the number of bytes read)
 
-        accessor.put((char) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put((char) 0, DataOrder.NATIVE_ORDER);
         assertEquals(2, accessor.position());
 
-        accessor.put((short) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put((short) 0, DataOrder.NATIVE_ORDER);
         assertEquals(4, accessor.position());
 
-        accessor.put(0, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, DataOrder.NATIVE_ORDER);
         assertEquals(8, accessor.position());
 
-        accessor.put(0L, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0L, DataOrder.NATIVE_ORDER);
         assertEquals(16, accessor.position());
 
-        accessor.put(0.0f, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0.0f, DataOrder.NATIVE_ORDER);
         assertEquals(20, accessor.position());
 
-        accessor.put(0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0.0, DataOrder.NATIVE_ORDER);
         assertEquals(28, accessor.position());
 
         //-----
@@ -126,22 +126,22 @@ public class RandomAccessorTest {
         //Check the calls of the style: #put(offset, T)
         //(should NOT increment the position of the accessor)
 
-        accessor.put(0, (char) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, (char) 0, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
-        accessor.put(0, (short) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, (short) 0, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
-        accessor.put(0, 0, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, 0, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
-        accessor.put(0, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, 0L, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
-        accessor.put(0, 0.0f, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, 0.0f, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
-        accessor.put(0, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, 0.0, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
         //-----
@@ -216,22 +216,22 @@ public class RandomAccessorTest {
         //Check the calls of the style: #get([T], srcOff, len, order)
         //(should increment the position of the accessor by the number of bytes read)
 
-        accessor.put(new char[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(new char[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(32, accessor.position());
 
-        accessor.put(new short[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(new short[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(64, accessor.position());
 
-        accessor.put(new int[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(new int[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(128, accessor.position());
 
-        accessor.put(new long[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(new long[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(256, accessor.position());
 
-        accessor.put(new float[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(new float[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(320, accessor.position());
 
-        accessor.put(new double[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(new double[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(448, accessor.position());
 
         //-----
@@ -244,22 +244,22 @@ public class RandomAccessorTest {
         //Check the calls of the style: #get(off, [T], srcOff, len, order)
         //(should NOT increment the position of the accessor)
 
-        accessor.put(0, new char[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, new char[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
-        accessor.put(0, new short[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, new short[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
-        accessor.put(0, new int[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, new int[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
-        accessor.put(0, new long[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, new long[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
-        accessor.put(0, new float[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, new float[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
-        accessor.put(0, new double[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        accessor.put(0, new double[16], 0, 16, DataOrder.NATIVE_ORDER);
         assertEquals(0, accessor.position());
 
         accessor.source().dealloc();
@@ -300,12 +300,12 @@ public class RandomAccessorTest {
         //Check the calls of the style: #put(T, order)
         //(should increment the position of the accessor by the number of bytes read)
 
-        assertThrows(IllegalArgumentException.class, () -> accessor.put((char) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put((short) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0.0f, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put((char) 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put((short) 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0L, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0.0f, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0.0, DataOrder.NATIVE_ORDER));
 
         //-----
 
@@ -320,12 +320,12 @@ public class RandomAccessorTest {
         //Check the calls of the style: #put(offset, T)
         //(should NOT increment the position of the accessor)
 
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, (char) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, (short) 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, 0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, 0L, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, 0.0f, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, 0.0, MemoryAccessorOrder.NATIVE_ENDIANNESS));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, (char) 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, (short) 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, 0, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, 0L, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, 0.0f, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, 0.0, DataOrder.NATIVE_ORDER));
 
         //-----
 
@@ -372,12 +372,12 @@ public class RandomAccessorTest {
         //Check the calls of the style: #get([T], srcOff, len, order)
         //(should increment the position of the accessor by the number of bytes read)
 
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(new char[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(new short[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(new int[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(new long[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(new float[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(new double[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(new char[16], 0, 16, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(new short[16], 0, 16, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(new int[16], 0, 16, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(new long[16], 0, 16, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(new float[16], 0, 16, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(new double[16], 0, 16, DataOrder.NATIVE_ORDER));
 
         //-----
 
@@ -388,12 +388,12 @@ public class RandomAccessorTest {
         //Check the calls of the style: #get(off, [T], srcOff, len, order)
         //(should NOT increment the position of the accessor)
 
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new char[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new short[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new int[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new long[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new float[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
-        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new double[16], 0, 16, MemoryAccessorOrder.NATIVE_ENDIANNESS));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new char[16], 0, 16, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new short[16], 0, 16, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new int[16], 0, 16, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new long[16], 0, 16, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new float[16], 0, 16, DataOrder.NATIVE_ORDER));
+        assertThrows(IllegalArgumentException.class, () -> accessor.put(0, new double[16], 0, 16, DataOrder.NATIVE_ORDER));
 
         assertEquals(0, accessor.position());
 

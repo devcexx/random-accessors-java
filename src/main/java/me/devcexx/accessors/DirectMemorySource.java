@@ -69,38 +69,38 @@ public class DirectMemorySource extends RandomAccessSource {
     }
 
     @Override
-    public short unsafeGetShort(long off, MemoryAccessorOrder order) {
+    public short unsafeGetShort(long off, DataOrder order) {
         return Unsafe.getShort(address + off, order);
     }
 
     @Override
-    public char unsafeGetChar(long off, MemoryAccessorOrder order) {
+    public char unsafeGetChar(long off, DataOrder order) {
         return Unsafe.getChar(address + off, order);
     }
 
     @Override
-    public int unsafeGetInt(long off, MemoryAccessorOrder order) {
+    public int unsafeGetInt(long off, DataOrder order) {
         return Unsafe.getInt(address + off, order);
     }
 
     @Override
-    public long unsafeGetLong(long off, MemoryAccessorOrder order) {
+    public long unsafeGetLong(long off, DataOrder order) {
         return Unsafe.getLong(address + off, order);
     }
 
     @Override
-    public float unsafeGetFloat(long off, MemoryAccessorOrder order) {
+    public float unsafeGetFloat(long off, DataOrder order) {
         return Unsafe.getFloat(address + off, order);
     }
 
     @Override
-    public double unsafeGetDouble(long off, MemoryAccessorOrder order) {
+    public double unsafeGetDouble(long off, DataOrder order) {
         return Unsafe.getDouble(address + off, order);
     }
 
     @Override
     public void unsafeGet(long off, byte[] buffer, int dstOff, int len) {
-        readToArray(off, buffer, 1, dstOff, len, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        readToArray(off, buffer, 1, dstOff, len, DataOrder.NATIVE_ORDER);
     }
 
     @Override
@@ -116,32 +116,32 @@ public class DirectMemorySource extends RandomAccessSource {
     }
 
     @Override
-    public void unsafeGet(long off, char[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, char[] buffer, int dstOff, int len, DataOrder order) {
         readToArray(off, buffer, 2, dstOff, len, order);
     }
 
     @Override
-    public void unsafeGet(long off, short[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, short[] buffer, int dstOff, int len, DataOrder order) {
         readToArray(off, buffer, 2, dstOff, len, order);
     }
 
     @Override
-    public void unsafeGet(long off, int[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, int[] buffer, int dstOff, int len, DataOrder order) {
         readToArray(off, buffer, 4, dstOff, len, order);
     }
 
     @Override
-    public void unsafeGet(long off, long[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, long[] buffer, int dstOff, int len, DataOrder order) {
         readToArray(off, buffer, 8, dstOff, len, order);
     }
 
     @Override
-    public void unsafeGet(long off, float[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, float[] buffer, int dstOff, int len, DataOrder order) {
         readToArray(off, buffer, 4, dstOff, len, order);
     }
 
     @Override
-    public void unsafeGet(long off, double[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
+    public void unsafeGet(long off, double[] buffer, int dstOff, int len, DataOrder order) {
         readToArray(off, buffer, 8, dstOff, len, order);
     }
 
@@ -151,38 +151,38 @@ public class DirectMemorySource extends RandomAccessSource {
     }
 
     @Override
-    public void unsafePut(long off, short value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, short value, DataOrder order) {
         Unsafe.putShort(address + off, value, order);
     }
 
     @Override
-    public void unsafePut(long off, char value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, char value, DataOrder order) {
         Unsafe.putChar(address + off, value, order);
     }
 
     @Override
-    public void unsafePut(long off, int value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, int value, DataOrder order) {
         Unsafe.putInt(address + off, value, order);
     }
 
     @Override
-    public void unsafePut(long off, long value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, long value, DataOrder order) {
         Unsafe.putLong(address + off, value, order);
     }
 
     @Override
-    public void unsafePut(long off, float value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, float value, DataOrder order) {
         Unsafe.putFloat(address + off, value, order);
     }
 
     @Override
-    public void unsafePut(long off, double value, MemoryAccessorOrder order) {
+    public void unsafePut(long off, double value, DataOrder order) {
         Unsafe.putDouble(address + off, value, order);
     }
 
     @Override
     public void unsafePut(long off, byte[] buffer, int srcOff, int len) {
-        writeFromArray(srcOff, buffer, 1, off, len, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        writeFromArray(srcOff, buffer, 1, off, len, DataOrder.NATIVE_ORDER);
     }
 
     @Override
@@ -198,32 +198,32 @@ public class DirectMemorySource extends RandomAccessSource {
     }
 
     @Override
-    public void unsafePut(long off, short[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, short[] buffer, int srcOff, int len, DataOrder order) {
         writeFromArray(srcOff, buffer, 2, off, len, order);
     }
 
     @Override
-    public void unsafePut(long off, char[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, char[] buffer, int srcOff, int len, DataOrder order) {
         writeFromArray(srcOff, buffer, 2, off, len, order);
     }
 
     @Override
-    public void unsafePut(long off, int[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, int[] buffer, int srcOff, int len, DataOrder order) {
         writeFromArray(srcOff, buffer, 4, off, len, order);
     }
 
     @Override
-    public void unsafePut(long off, long[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, long[] buffer, int srcOff, int len, DataOrder order) {
         writeFromArray(srcOff, buffer, 8, off, len, order);
     }
 
     @Override
-    public void unsafePut(long off, float[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, float[] buffer, int srcOff, int len, DataOrder order) {
         writeFromArray(srcOff, buffer, 4, off, len, order);
     }
 
     @Override
-    public void unsafePut(long off, double[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
+    public void unsafePut(long off, double[] buffer, int srcOff, int len, DataOrder order) {
         writeFromArray(srcOff, buffer, 8, off, len, order);
     }
 
@@ -241,11 +241,11 @@ public class DirectMemorySource extends RandomAccessSource {
         super.finalize();
     }
 
-    protected void readToArray(long srcOff, Object buf, int dataSize, int dstOff, int len, MemoryAccessorOrder order) {
+    protected void readToArray(long srcOff, Object buf, int dataSize, int dstOff, int len, DataOrder order) {
         Unsafe.copyMemBlockToArray(address + srcOff, buf, dstOff, dataSize, len, order);
     }
 
-    protected void writeFromArray(int srcOff, Object buf, int dataSize, long dstOff, int len, MemoryAccessorOrder order) {
+    protected void writeFromArray(int srcOff, Object buf, int dataSize, long dstOff, int len, DataOrder order) {
         Unsafe.copyArrayToAddress(buf, srcOff, address + dstOff, dataSize, len, order);
     }
 }

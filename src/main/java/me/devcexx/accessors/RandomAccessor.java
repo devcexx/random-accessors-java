@@ -28,15 +28,15 @@ public class RandomAccessor {
     public interface AccessorState {
         long limit();
         long position();
-        MemoryAccessorOrder order();
+        DataOrder order();
     }
 
     private static class AccessorStateImpl implements AccessorState {
         private long limit;
         private long position;
-        private MemoryAccessorOrder order;
+        private DataOrder order;
 
-        public AccessorStateImpl(long limit, long position, MemoryAccessorOrder order) {
+        public AccessorStateImpl(long limit, long position, DataOrder order) {
             this.limit = limit;
             this.position = position;
             this.order = order;
@@ -53,7 +53,7 @@ public class RandomAccessor {
         }
 
         @Override
-        public MemoryAccessorOrder order() {
+        public DataOrder order() {
             return this.order;
         }
 
@@ -79,7 +79,7 @@ public class RandomAccessor {
      * @param source the source to use.
      * @param order the default order for the accessor.
      */
-    public RandomAccessor(RandomAccessSource source, MemoryAccessorOrder order) {
+    public RandomAccessor(RandomAccessSource source, DataOrder order) {
         this(source, 0, source.length(), order);
     }
 
@@ -98,7 +98,7 @@ public class RandomAccessor {
      * @param position the initial position of the random accessor.
      */
     public RandomAccessor(RandomAccessSource source, long position, long limit) {
-        this(source, position, limit, MemoryAccessorOrder.NATIVE_ENDIANNESS);
+        this(source, position, limit, DataOrder.NATIVE_ORDER);
     }
 
     /**
@@ -108,7 +108,7 @@ public class RandomAccessor {
      * @param limit the initial limit of the accessor.
      * @param order the default order for the accessor.
      */
-    public RandomAccessor(RandomAccessSource source, long position, long limit, MemoryAccessorOrder order) {
+    public RandomAccessor(RandomAccessSource source, long position, long limit, DataOrder order) {
         this.state = new AccessorStateImpl(source.length(), 0, order);
         this.source = source;
 
@@ -230,7 +230,7 @@ public class RandomAccessor {
      * Returns the default byte order that will be used to
      * encode or decode data in this accessor.
      */
-    public MemoryAccessorOrder order() {
+    public DataOrder order() {
         return this.state.order;
     }
 
@@ -238,7 +238,7 @@ public class RandomAccessor {
      * Sets the new default byte order of the current accessor.
      * @param order the new byte order.
      */
-    public void order(MemoryAccessorOrder order) {
+    public void order(DataOrder order) {
         this.state.order = order;
     }
 
@@ -406,13 +406,13 @@ public class RandomAccessor {
         return getShort(off, order());
     }
 
-    public short getShort(MemoryAccessorOrder order) {
+    public short getShort(DataOrder order) {
         short x = getShort(position(), order);
         unsafeAdvance(2);
         return x;
     }
 
-    public short getShort(long off, MemoryAccessorOrder order) {
+    public short getShort(long off, DataOrder order) {
         checkLimit(off, 2);
         return source.getShort(off, order);
     }
@@ -429,13 +429,13 @@ public class RandomAccessor {
         return getChar(off, order());
     }
 
-    public char getChar(MemoryAccessorOrder order) {
+    public char getChar(DataOrder order) {
         char x = getChar(position(), order);
         unsafeAdvance(2);
         return x;
     }
 
-    public char getChar(long off, MemoryAccessorOrder order) {
+    public char getChar(long off, DataOrder order) {
         checkLimit(off, 2);
         return source.getChar(off, order);
     }
@@ -452,13 +452,13 @@ public class RandomAccessor {
         return getUnsignedShort(off, order());
     }
 
-    public int getUnsignedShort(MemoryAccessorOrder order) {
+    public int getUnsignedShort(DataOrder order) {
         int x = getUnsignedShort(position(), order);
         unsafeAdvance(2);
         return x;
     }
 
-    public int getUnsignedShort(long off, MemoryAccessorOrder order) {
+    public int getUnsignedShort(long off, DataOrder order) {
         checkLimit(off, 2);
         return source.getUnsignedShort(off, order);
     }
@@ -475,13 +475,13 @@ public class RandomAccessor {
         return getInt(off, order());
     }
 
-    public int getInt(MemoryAccessorOrder order) {
+    public int getInt(DataOrder order) {
         int x = getInt(position(), order);
         unsafeAdvance(4);
         return x;
     }
 
-    public int getInt(long off, MemoryAccessorOrder order) {
+    public int getInt(long off, DataOrder order) {
         checkLimit(off, 4);
         return source.getInt(off, order);
     }
@@ -498,13 +498,13 @@ public class RandomAccessor {
         return getUnsignedInt(off, order());
     }
 
-    public long getUnsignedInt(MemoryAccessorOrder order) {
+    public long getUnsignedInt(DataOrder order) {
         long x = getUnsignedInt(position(), order);
         unsafeAdvance(4);
         return x;
     }
 
-    public long getUnsignedInt(long off, MemoryAccessorOrder order) {
+    public long getUnsignedInt(long off, DataOrder order) {
         checkLimit(off, 4);
         return source.getUnsignedInt(off, order);
     }
@@ -521,13 +521,13 @@ public class RandomAccessor {
         return getLong(off, order());
     }
 
-    public long getLong(MemoryAccessorOrder order) {
+    public long getLong(DataOrder order) {
         long x = getLong(position(), order());
         unsafeAdvance(8);
         return x;
     }
 
-    public long getLong(long off, MemoryAccessorOrder order) {
+    public long getLong(long off, DataOrder order) {
         checkLimit(off, 8);
         return source.getLong(off, order);
     }
@@ -544,13 +544,13 @@ public class RandomAccessor {
         return getFloat(off, order());
     }
 
-    public float getFloat(MemoryAccessorOrder order) {
+    public float getFloat(DataOrder order) {
         float x = getFloat(position(), order);
         unsafeAdvance(4);
         return x;
     }
 
-    public float getFloat(long off, MemoryAccessorOrder order) {
+    public float getFloat(long off, DataOrder order) {
         checkLimit(off, 4);
         return source.getFloat(off, order);
     }
@@ -567,13 +567,13 @@ public class RandomAccessor {
         return getDouble(off, order());
     }
 
-    public double getDouble(MemoryAccessorOrder order) {
+    public double getDouble(DataOrder order) {
         double x = getDouble(position(), order);
         unsafeAdvance(8);
         return x;
     }
 
-    public double getDouble(long off, MemoryAccessorOrder order) {
+    public double getDouble(long off, DataOrder order) {
         checkLimit(off, 8);
         return source.getDouble(off, order);
     }
@@ -619,7 +619,7 @@ public class RandomAccessor {
         return get(buf, 0, buf.length);
     }
 
-    public short[] get(short[] buf, MemoryAccessorOrder order) {
+    public short[] get(short[] buf, DataOrder order) {
         return get(buf, 0, buf.length, order);
     }
 
@@ -627,7 +627,7 @@ public class RandomAccessor {
         return get(off, buf, 0, buf.length);
     }
 
-    public short[] get(long off, short[] buf, MemoryAccessorOrder order) {
+    public short[] get(long off, short[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
@@ -637,7 +637,7 @@ public class RandomAccessor {
         return buf;
     }
 
-    public short[] get(short[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public short[] get(short[] buf, int dstOff, int len, DataOrder order) {
         get(position(), buf, dstOff, len, order);
         unsafeAdvance(len * 2);
         return buf;
@@ -647,7 +647,7 @@ public class RandomAccessor {
         return get(off, buf, dstOff, len, order());
     }
 
-    public short[] get(long off, short[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public short[] get(long off, short[] buf, int dstOff, int len, DataOrder order) {
         checkLimit(off, len);
         return source.get(off, buf, dstOff, len, order);
     }
@@ -658,7 +658,7 @@ public class RandomAccessor {
         return get(buf, 0, buf.length);
     }
 
-    public char[] get(char[] buf, MemoryAccessorOrder order) {
+    public char[] get(char[] buf, DataOrder order) {
         return get(buf, 0, buf.length, order);
     }
 
@@ -666,7 +666,7 @@ public class RandomAccessor {
         return get(off, buf, 0, buf.length);
     }
 
-    public char[] get(long off, char[] buf, MemoryAccessorOrder order) {
+    public char[] get(long off, char[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
@@ -676,7 +676,7 @@ public class RandomAccessor {
         return buf;
     }
 
-    public char[] get(char[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public char[] get(char[] buf, int dstOff, int len, DataOrder order) {
         get(position(), buf, dstOff, len, order);
         unsafeAdvance(len * 2);
         return buf;
@@ -686,7 +686,7 @@ public class RandomAccessor {
         return get(off, buf, dstOff, len, order());
     }
 
-    public char[] get(long off, char[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public char[] get(long off, char[] buf, int dstOff, int len, DataOrder order) {
         checkLimit(off, len);
         return source.get(off, buf, dstOff, len, order);
     }
@@ -697,7 +697,7 @@ public class RandomAccessor {
         return get(buf, 0, buf.length);
     }
 
-    public int[] get(int[] buf, MemoryAccessorOrder order) {
+    public int[] get(int[] buf, DataOrder order) {
         return get(buf, 0, buf.length, order);
     }
 
@@ -705,7 +705,7 @@ public class RandomAccessor {
         return get(off, buf, 0, buf.length);
     }
 
-    public int[] get(long off, int[] buf, MemoryAccessorOrder order) {
+    public int[] get(long off, int[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
@@ -715,7 +715,7 @@ public class RandomAccessor {
         return buf;
     }
 
-    public int[] get(int[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public int[] get(int[] buf, int dstOff, int len, DataOrder order) {
         get(position(), buf, dstOff, len, order);
         unsafeAdvance(len * 4);
         return buf;
@@ -725,7 +725,7 @@ public class RandomAccessor {
         return get(off, buf, dstOff, len, order());
     }
 
-    public int[] get(long off, int[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public int[] get(long off, int[] buf, int dstOff, int len, DataOrder order) {
         checkLimit(off, len);
         return source.get(off, buf, dstOff, len, order);
     }
@@ -736,7 +736,7 @@ public class RandomAccessor {
         return get(buf, 0, buf.length);
     }
 
-    public long[] get(long[] buf, MemoryAccessorOrder order) {
+    public long[] get(long[] buf, DataOrder order) {
         return get(buf, 0, buf.length, order);
     }
 
@@ -744,7 +744,7 @@ public class RandomAccessor {
         return get(off, buf, 0, buf.length);
     }
 
-    public long[] get(long off, long[] buf, MemoryAccessorOrder order) {
+    public long[] get(long off, long[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
@@ -754,7 +754,7 @@ public class RandomAccessor {
         return buf;
     }
 
-    public long[] get(long[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public long[] get(long[] buf, int dstOff, int len, DataOrder order) {
         get(position(), buf, dstOff, len, order);
         unsafeAdvance(len * 8);
         return buf;
@@ -764,7 +764,7 @@ public class RandomAccessor {
         return get(off, buf, dstOff, len, order());
     }
 
-    public long[] get(long off, long[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public long[] get(long off, long[] buf, int dstOff, int len, DataOrder order) {
         checkLimit(off, len);
         return source.get(off, buf, dstOff, len, order);
     }
@@ -775,7 +775,7 @@ public class RandomAccessor {
         return get(buf, 0, buf.length);
     }
 
-    public float[] get(float[] buf, MemoryAccessorOrder order) {
+    public float[] get(float[] buf, DataOrder order) {
         return get(buf, 0, buf.length, order);
     }
 
@@ -783,7 +783,7 @@ public class RandomAccessor {
         return get(off, buf, 0, buf.length);
     }
 
-    public float[] get(long off, float[] buf, MemoryAccessorOrder order) {
+    public float[] get(long off, float[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
@@ -793,7 +793,7 @@ public class RandomAccessor {
         return buf;
     }
 
-    public float[] get(float[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public float[] get(float[] buf, int dstOff, int len, DataOrder order) {
         get(position(), buf, dstOff, len, order);
         unsafeAdvance(len * 4);
         return buf;
@@ -803,7 +803,7 @@ public class RandomAccessor {
         return get(off, buf, dstOff, len, order());
     }
 
-    public float[] get(long off, float[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public float[] get(long off, float[] buf, int dstOff, int len, DataOrder order) {
         checkLimit(off, len);
         return source.get(off, buf, dstOff, len, order);
     }
@@ -814,7 +814,7 @@ public class RandomAccessor {
         return get(buf, 0, buf.length);
     }
 
-    public double[] get(double[] buf, MemoryAccessorOrder order) {
+    public double[] get(double[] buf, DataOrder order) {
         return get(buf, 0, buf.length, order);
     }
 
@@ -822,7 +822,7 @@ public class RandomAccessor {
         return get(off, buf, 0, buf.length);
     }
 
-    public double[] get(long off, double[] buf, MemoryAccessorOrder order) {
+    public double[] get(long off, double[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
@@ -832,7 +832,7 @@ public class RandomAccessor {
         return buf;
     }
 
-    public double[] get(double[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public double[] get(double[] buf, int dstOff, int len, DataOrder order) {
         get(position(), buf, dstOff, len, order);
         unsafeAdvance(len * 8);
         return buf;
@@ -842,7 +842,7 @@ public class RandomAccessor {
         return get(off, buf, dstOff, len, order());
     }
 
-    public double[] get(long off, double[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public double[] get(long off, double[] buf, int dstOff, int len, DataOrder order) {
         checkLimit(off, len);
         return source.get(off, buf, dstOff, len, order);
     }
@@ -866,7 +866,7 @@ public class RandomAccessor {
         unsafeAdvance(2);
     }
 
-    public void put(short x, MemoryAccessorOrder order) {
+    public void put(short x, DataOrder order) {
         put(position(), x, order);
         unsafeAdvance(2);
     }
@@ -875,7 +875,7 @@ public class RandomAccessor {
         put(position(), x, order());
     }
 
-    public void put(long off, short x, MemoryAccessorOrder order) {
+    public void put(long off, short x, DataOrder order) {
         checkLimit(off, 2);
         source.put(off, x, order);
     }
@@ -887,7 +887,7 @@ public class RandomAccessor {
         unsafeAdvance(2);
     }
 
-    public void put(char x, MemoryAccessorOrder order) {
+    public void put(char x, DataOrder order) {
         put(position(), x, order);
         unsafeAdvance(2);
     }
@@ -896,7 +896,7 @@ public class RandomAccessor {
         put(position(), x, order());
     }
 
-    public void put(long off, char x, MemoryAccessorOrder order) {
+    public void put(long off, char x, DataOrder order) {
         checkLimit(off, 2);
         source.put(off, x, order);
     }
@@ -908,7 +908,7 @@ public class RandomAccessor {
         unsafeAdvance(4);
     }
 
-    public void put(int x, MemoryAccessorOrder order) {
+    public void put(int x, DataOrder order) {
         put(position(), x, order);
         unsafeAdvance(4);
     }
@@ -917,7 +917,7 @@ public class RandomAccessor {
         put(position(), x, order());
     }
 
-    public void put(long off, int x, MemoryAccessorOrder order) {
+    public void put(long off, int x, DataOrder order) {
         checkLimit(off, 4);
         source.put(off, x, order);
     }
@@ -929,7 +929,7 @@ public class RandomAccessor {
         unsafeAdvance(8);
     }
 
-    public void put(long x, MemoryAccessorOrder order) {
+    public void put(long x, DataOrder order) {
         put(position(), x, order);
         unsafeAdvance(8);
     }
@@ -938,7 +938,7 @@ public class RandomAccessor {
         put(position(), x, order());
     }
 
-    public void put(long off, long x, MemoryAccessorOrder order) {
+    public void put(long off, long x, DataOrder order) {
         checkLimit(off, 8);
         source.put(off, x, order);
     }
@@ -950,7 +950,7 @@ public class RandomAccessor {
         unsafeAdvance(4);
     }
 
-    public void put(float x, MemoryAccessorOrder order) {
+    public void put(float x, DataOrder order) {
         put(position(), x, order);
         unsafeAdvance(4);
     }
@@ -959,7 +959,7 @@ public class RandomAccessor {
         put(position(), x, order());
     }
 
-    public void put(long off, float x, MemoryAccessorOrder order) {
+    public void put(long off, float x, DataOrder order) {
         checkLimit(off, 4);
         source.put(off, x, order);
     }
@@ -971,7 +971,7 @@ public class RandomAccessor {
         unsafeAdvance(8);
     }
 
-    public void put(double x, MemoryAccessorOrder order) {
+    public void put(double x, DataOrder order) {
         put(position(), x, order);
         unsafeAdvance(8);
     }
@@ -980,7 +980,7 @@ public class RandomAccessor {
         put(position(), x, order());
     }
 
-    public void put(long off, double x, MemoryAccessorOrder order) {
+    public void put(long off, double x, DataOrder order) {
         checkLimit(off, 8);
         source.put(off, x, order);
     }
@@ -1024,7 +1024,7 @@ public class RandomAccessor {
         put(buf, 0, buf.length);
     }
 
-    public void put(short[] buf, MemoryAccessorOrder order) {
+    public void put(short[] buf, DataOrder order) {
         put(buf, 0, buf.length, order);
     }
 
@@ -1032,7 +1032,7 @@ public class RandomAccessor {
         put(off, buf, 0, buf.length);
     }
 
-    public void put(long off, short[] buf, MemoryAccessorOrder order) {
+    public void put(long off, short[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
@@ -1045,12 +1045,12 @@ public class RandomAccessor {
         put(off, buf, srcOff, length, order());
     }
 
-    public void put(short[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(short[] buf, int srcOff, int length, DataOrder order) {
         put(position(), buf, srcOff, length, order);
         unsafeAdvance(length * 2);
     }
 
-    public void put(long off, short[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, short[] buf, int srcOff, int length, DataOrder order) {
         checkLimit(off, length);
         source.put(off, buf, srcOff, length, order);
     }
@@ -1061,7 +1061,7 @@ public class RandomAccessor {
         put(buf, 0, buf.length);
     }
 
-    public void put(char[] buf, MemoryAccessorOrder order) {
+    public void put(char[] buf, DataOrder order) {
         put(buf, 0, buf.length, order);
     }
 
@@ -1069,7 +1069,7 @@ public class RandomAccessor {
         put(off, buf, 0, buf.length);
     }
 
-    public void put(long off, char[] buf, MemoryAccessorOrder order) {
+    public void put(long off, char[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
@@ -1082,12 +1082,12 @@ public class RandomAccessor {
         put(off, buf, srcOff, length, order());
     }
 
-    public void put(char[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(char[] buf, int srcOff, int length, DataOrder order) {
         put(position(), buf, srcOff, length, order);
         unsafeAdvance(length * 2);
     }
 
-    public void put(long off, char[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, char[] buf, int srcOff, int length, DataOrder order) {
         checkLimit(off, length);
         source.put(off, buf, srcOff, length, order);
     }
@@ -1098,7 +1098,7 @@ public class RandomAccessor {
         put(buf, 0, buf.length);
     }
 
-    public void put(int[] buf, MemoryAccessorOrder order) {
+    public void put(int[] buf, DataOrder order) {
         put(buf, 0, buf.length, order);
     }
 
@@ -1106,7 +1106,7 @@ public class RandomAccessor {
         put(off, buf, 0, buf.length);
     }
 
-    public void put(long off, int[] buf, MemoryAccessorOrder order) {
+    public void put(long off, int[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
@@ -1119,12 +1119,12 @@ public class RandomAccessor {
         put(off, buf, srcOff, length, order());
     }
 
-    public void put(int[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(int[] buf, int srcOff, int length, DataOrder order) {
         put(position(), buf, srcOff, length, order);
         unsafeAdvance(length * 4);
     }
 
-    public void put(long off, int[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, int[] buf, int srcOff, int length, DataOrder order) {
         checkLimit(off, length);
         source.put(off, buf, srcOff, length, order);
     }
@@ -1135,7 +1135,7 @@ public class RandomAccessor {
         put(buf, 0, buf.length);
     }
 
-    public void put(long[] buf, MemoryAccessorOrder order) {
+    public void put(long[] buf, DataOrder order) {
         put(buf, 0, buf.length, order);
     }
 
@@ -1143,7 +1143,7 @@ public class RandomAccessor {
         put(off, buf, 0, buf.length);
     }
 
-    public void put(long off, long[] buf, MemoryAccessorOrder order) {
+    public void put(long off, long[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
@@ -1156,12 +1156,12 @@ public class RandomAccessor {
         put(off, buf, srcOff, length, order());
     }
 
-    public void put(long[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long[] buf, int srcOff, int length, DataOrder order) {
         put(position(), buf, srcOff, length, order);
         unsafeAdvance(length * 8);
     }
 
-    public void put(long off, long[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, long[] buf, int srcOff, int length, DataOrder order) {
         checkLimit(off, length);
         source.put(off, buf, srcOff, length, order);
     }
@@ -1172,7 +1172,7 @@ public class RandomAccessor {
         put(buf, 0, buf.length);
     }
 
-    public void put(float[] buf, MemoryAccessorOrder order) {
+    public void put(float[] buf, DataOrder order) {
         put(buf, 0, buf.length, order);
     }
 
@@ -1180,7 +1180,7 @@ public class RandomAccessor {
         put(off, buf, 0, buf.length);
     }
 
-    public void put(long off, float[] buf, MemoryAccessorOrder order) {
+    public void put(long off, float[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
@@ -1193,12 +1193,12 @@ public class RandomAccessor {
         put(off, buf, srcOff, length, order());
     }
 
-    public void put(float[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(float[] buf, int srcOff, int length, DataOrder order) {
         put(position(), buf, srcOff, length, order);
         unsafeAdvance(length * 4);
     }
 
-    public void put(long off, float[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, float[] buf, int srcOff, int length, DataOrder order) {
         checkLimit(off, length);
         source.put(off, buf, srcOff, length, order);
     }
@@ -1209,7 +1209,7 @@ public class RandomAccessor {
         put(buf, 0, buf.length);
     }
 
-    public void put(double[] buf, MemoryAccessorOrder order) {
+    public void put(double[] buf, DataOrder order) {
         put(buf, 0, buf.length, order);
     }
 
@@ -1217,7 +1217,7 @@ public class RandomAccessor {
         put(off, buf, 0, buf.length);
     }
 
-    public void put(long off, double[] buf, MemoryAccessorOrder order) {
+    public void put(long off, double[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
@@ -1230,12 +1230,12 @@ public class RandomAccessor {
         put(off, buf, srcOff, length, order());
     }
 
-    public void put(double[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(double[] buf, int srcOff, int length, DataOrder order) {
         put(position(), buf, srcOff, length, order);
         unsafeAdvance(length * 8);
     }
 
-    public void put(long off, double[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, double[] buf, int srcOff, int length, DataOrder order) {
         checkLimit(off, length);
         source.put(off, buf, srcOff, length, order);
     }

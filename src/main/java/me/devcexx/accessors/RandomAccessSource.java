@@ -196,38 +196,38 @@ public abstract class RandomAccessSource {
     public abstract void dealloc();
 
     public abstract byte     unsafeGet(long off);
-    public abstract short    unsafeGetShort(long off, MemoryAccessorOrder order);
-    public abstract char     unsafeGetChar(long off, MemoryAccessorOrder order);
-    public abstract int      unsafeGetInt(long off, MemoryAccessorOrder order);
-    public abstract long     unsafeGetLong(long off, MemoryAccessorOrder order);
-    public abstract float    unsafeGetFloat(long off, MemoryAccessorOrder order);
-    public abstract double   unsafeGetDouble(long off, MemoryAccessorOrder order);
+    public abstract short    unsafeGetShort(long off, DataOrder order);
+    public abstract char     unsafeGetChar(long off, DataOrder order);
+    public abstract int      unsafeGetInt(long off, DataOrder order);
+    public abstract long     unsafeGetLong(long off, DataOrder order);
+    public abstract float    unsafeGetFloat(long off, DataOrder order);
+    public abstract double   unsafeGetDouble(long off, DataOrder order);
 
     public abstract void     unsafeGet(long off, byte[] buffer, int dstOff, int len);
     public abstract void     unsafeGet(long off, ByteBuffer buf);
-    public abstract void     unsafeGet(long off, char[] buffer, int dstOff, int len, MemoryAccessorOrder order);
-    public abstract void     unsafeGet(long off, short[] buffer, int dstOff, int len, MemoryAccessorOrder order);
-    public abstract void     unsafeGet(long off, int[] buffer, int dstOff, int len, MemoryAccessorOrder order);
-    public abstract void     unsafeGet(long off, long[] buffer, int dstOff, int len, MemoryAccessorOrder order);
-    public abstract void     unsafeGet(long off, float[] buffer, int dstOff, int len, MemoryAccessorOrder order);
-    public abstract void     unsafeGet(long off, double[] buffer, int dstOff, int len, MemoryAccessorOrder order);
+    public abstract void     unsafeGet(long off, char[] buffer, int dstOff, int len, DataOrder order);
+    public abstract void     unsafeGet(long off, short[] buffer, int dstOff, int len, DataOrder order);
+    public abstract void     unsafeGet(long off, int[] buffer, int dstOff, int len, DataOrder order);
+    public abstract void     unsafeGet(long off, long[] buffer, int dstOff, int len, DataOrder order);
+    public abstract void     unsafeGet(long off, float[] buffer, int dstOff, int len, DataOrder order);
+    public abstract void     unsafeGet(long off, double[] buffer, int dstOff, int len, DataOrder order);
 
     public abstract void     unsafePut(long off, byte value);
-    public abstract void     unsafePut(long off, short value, MemoryAccessorOrder order);
-    public abstract void     unsafePut(long off, char value, MemoryAccessorOrder order);
-    public abstract void     unsafePut(long off, int value, MemoryAccessorOrder order);
-    public abstract void     unsafePut(long off, long value, MemoryAccessorOrder order);
-    public abstract void     unsafePut(long off, float value, MemoryAccessorOrder order);
-    public abstract void     unsafePut(long off, double value, MemoryAccessorOrder order);
+    public abstract void     unsafePut(long off, short value, DataOrder order);
+    public abstract void     unsafePut(long off, char value, DataOrder order);
+    public abstract void     unsafePut(long off, int value, DataOrder order);
+    public abstract void     unsafePut(long off, long value, DataOrder order);
+    public abstract void     unsafePut(long off, float value, DataOrder order);
+    public abstract void     unsafePut(long off, double value, DataOrder order);
 
     public abstract void     unsafePut(long off, byte[] buffer, int srcOff, int len);
     public abstract void     unsafePut(long off, ByteBuffer buf);
-    public abstract void     unsafePut(long off, short[] buffer, int srcOff, int len, MemoryAccessorOrder order);
-    public abstract void     unsafePut(long off, char[] buffer, int srcOff, int len, MemoryAccessorOrder order);
-    public abstract void     unsafePut(long off, int[] buffer, int srcOff, int len, MemoryAccessorOrder order);
-    public abstract void     unsafePut(long off, long[] buffer, int srcOff, int len, MemoryAccessorOrder order);
-    public abstract void     unsafePut(long off, float[] buffer, int srcOff, int len, MemoryAccessorOrder order);
-    public abstract void     unsafePut(long off, double[] buffer, int srcOff, int len, MemoryAccessorOrder order);
+    public abstract void     unsafePut(long off, short[] buffer, int srcOff, int len, DataOrder order);
+    public abstract void     unsafePut(long off, char[] buffer, int srcOff, int len, DataOrder order);
+    public abstract void     unsafePut(long off, int[] buffer, int srcOff, int len, DataOrder order);
+    public abstract void     unsafePut(long off, long[] buffer, int srcOff, int len, DataOrder order);
+    public abstract void     unsafePut(long off, float[] buffer, int srcOff, int len, DataOrder order);
+    public abstract void     unsafePut(long off, double[] buffer, int srcOff, int len, DataOrder order);
 
     // Safe & convenience methods
 
@@ -240,40 +240,40 @@ public abstract class RandomAccessSource {
         return get(off) & 0xff;
     }
 
-    public char getChar(long off, MemoryAccessorOrder order) {
+    public char getChar(long off, DataOrder order) {
         checkAbleToIO(off, 2);
         return unsafeGetChar(off, order);
     }
 
-    public short getShort(long off, MemoryAccessorOrder order) {
+    public short getShort(long off, DataOrder order) {
         checkAbleToIO(off, 2);
         return unsafeGetShort(off, order);
     }
 
-    public int getUnsignedShort(long off, MemoryAccessorOrder order) {
+    public int getUnsignedShort(long off, DataOrder order) {
         return getShort(off, order) & 0xffff;
     }
 
-    public int getInt(long off, MemoryAccessorOrder order) {
+    public int getInt(long off, DataOrder order) {
         checkAbleToIO(off, 4);
         return unsafeGetInt(off, order);
     }
 
-    public long getUnsignedInt(long off, MemoryAccessorOrder order) {
+    public long getUnsignedInt(long off, DataOrder order) {
         return getInt(off, order) & 0xffffffffL;
     }
 
-    public long getLong(long off, MemoryAccessorOrder order) {
+    public long getLong(long off, DataOrder order) {
         checkAbleToIO(off, 8);
         return unsafeGetLong(off, order);
     }
 
-    public float getFloat(long off, MemoryAccessorOrder order) {
+    public float getFloat(long off, DataOrder order) {
         checkAbleToIO(off, 4);
         return unsafeGetFloat(off, order);
     }
 
-    public double getDouble(long off, MemoryAccessorOrder order) {
+    public double getDouble(long off, DataOrder order) {
         checkAbleToIO(off, 8);
         return unsafeGetDouble(off, order);
     }
@@ -294,66 +294,66 @@ public abstract class RandomAccessSource {
         return buf;
     }
 
-    public short[] get(long off, short[] buf, MemoryAccessorOrder order) {
+    public short[] get(long off, short[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
-    public short[] get(long off, short[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public short[] get(long off, short[] buf, int dstOff, int len, DataOrder order) {
         Validate.checkInRange(buf.length, dstOff, len);
         checkAbleToIO(off, len * 2);
         unsafeGet(off, buf, dstOff, len, order);
         return buf;
     }
 
-    public char[] get(long off, char[] buf, MemoryAccessorOrder order) {
+    public char[] get(long off, char[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
-    public char[] get(long off, char[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public char[] get(long off, char[] buf, int dstOff, int len, DataOrder order) {
         Validate.checkInRange(buf.length, dstOff, len);
         checkAbleToIO(off, len * 2);
         unsafeGet(off, buf, dstOff, len, order);
         return buf;
     }
 
-    public int[] get(long off, int[] buf, MemoryAccessorOrder order) {
+    public int[] get(long off, int[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
-    public int[] get(long off, int[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public int[] get(long off, int[] buf, int dstOff, int len, DataOrder order) {
         Validate.checkInRange(buf.length, dstOff, len);
         checkAbleToIO(off, len * 4);
         unsafeGet(off, buf, dstOff, len, order);
         return buf;
     }
 
-    public long[] get(long off, long[] buf, MemoryAccessorOrder order) {
+    public long[] get(long off, long[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
-    public long[] get(long off, long[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public long[] get(long off, long[] buf, int dstOff, int len, DataOrder order) {
         Validate.checkInRange(buf.length, dstOff, len);
         checkAbleToIO(off, len * 8);
         unsafeGet(off, buf, dstOff, len, order);
         return buf;
     }
 
-    public float[] get(long off, float[] buf, MemoryAccessorOrder order) {
+    public float[] get(long off, float[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
-    public float[] get(long off, float[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public float[] get(long off, float[] buf, int dstOff, int len, DataOrder order) {
         Validate.checkInRange(buf.length, dstOff, len);
         checkAbleToIO(off, len * 4);
         unsafeGet(off, buf, dstOff, len, order);
         return buf;
     }
 
-    public double[] get(long off, double[] buf, MemoryAccessorOrder order) {
+    public double[] get(long off, double[] buf, DataOrder order) {
         return get(off, buf, 0, buf.length, order);
     }
 
-    public double[] get(long off, double[] buf, int dstOff, int len, MemoryAccessorOrder order) {
+    public double[] get(long off, double[] buf, int dstOff, int len, DataOrder order) {
         Validate.checkInRange(buf.length, dstOff, len);
         checkAbleToIO(off, len * 8);
         unsafeGet(off, buf, dstOff, len, order);
@@ -365,32 +365,32 @@ public abstract class RandomAccessSource {
         unsafePut(off, x);
     }
 
-    public void put(long off, short x, MemoryAccessorOrder order) {
+    public void put(long off, short x, DataOrder order) {
         checkAbleToIO(off, 2);
         unsafePut(off, x, order);
     }
 
-    public void put(long off, char x, MemoryAccessorOrder order) {
+    public void put(long off, char x, DataOrder order) {
         checkAbleToIO(off, 2);
         unsafePut(off, x, order);
     }
 
-    public void put(long off, int x, MemoryAccessorOrder order) {
+    public void put(long off, int x, DataOrder order) {
         checkAbleToIO(off, 4);
         unsafePut(off, x, order);
     }
 
-    public void put(long off, long x, MemoryAccessorOrder order) {
+    public void put(long off, long x, DataOrder order) {
         checkAbleToIO(off, 8);
         unsafePut(off, x, order);
     }
 
-    public void put(long off, float x, MemoryAccessorOrder order) {
+    public void put(long off, float x, DataOrder order) {
         checkAbleToIO(off, 4);
         unsafePut(off, x, order);
     }
 
-    public void put(long off, double x, MemoryAccessorOrder order) {
+    public void put(long off, double x, DataOrder order) {
         checkAbleToIO(off, 8);
         unsafePut(off, x, order);
     }
@@ -410,61 +410,61 @@ public abstract class RandomAccessSource {
         unsafePut(off, buf);
     }
 
-    public void put(long off, short[] buf, MemoryAccessorOrder order) {
+    public void put(long off, short[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
-    public void put(long off, short[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, short[] buf, int srcOff, int length, DataOrder order) {
         Validate.checkInRange(buf.length, srcOff, length);
         checkAbleToIO(off, 2 * length);
         unsafePut(off, buf, srcOff, length, order);
     }
 
-    public void put(long off, char[] buf, MemoryAccessorOrder order) {
+    public void put(long off, char[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
-    public void put(long off, char[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, char[] buf, int srcOff, int length, DataOrder order) {
         Validate.checkInRange(buf.length, srcOff, length);
         checkAbleToIO(off, 2 * length);
         unsafePut(off, buf, srcOff, length, order);
     }
 
-    public void put(long off, int[] buf, MemoryAccessorOrder order) {
+    public void put(long off, int[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
-    public void put(long off, int[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, int[] buf, int srcOff, int length, DataOrder order) {
         Validate.checkInRange(buf.length, srcOff, length);
         checkAbleToIO(off, 4 * length);
         unsafePut(off, buf, srcOff, length, order);
     }
 
-    public void put(long off, long[] buf, MemoryAccessorOrder order) {
+    public void put(long off, long[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
-    public void put(long off, long[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, long[] buf, int srcOff, int length, DataOrder order) {
         Validate.checkInRange(buf.length, srcOff, length);
         checkAbleToIO(off, 8 * length);
         unsafePut(off, buf, srcOff, length, order);
     }
 
-    public void put(long off, float[] buf, MemoryAccessorOrder order) {
+    public void put(long off, float[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
-    public void put(long off, float[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, float[] buf, int srcOff, int length, DataOrder order) {
         Validate.checkInRange(buf.length, srcOff, length);
         checkAbleToIO(off, 4 * length);
         unsafePut(off, buf, srcOff, length, order);
     }
 
-    public void put(long off, double[] buf, MemoryAccessorOrder order) {
+    public void put(long off, double[] buf, DataOrder order) {
         put(off, buf, 0, buf.length, order);
     }
 
-    public void put(long off, double[] buf, int srcOff, int length, MemoryAccessorOrder order) {
+    public void put(long off, double[] buf, int srcOff, int length, DataOrder order) {
         Validate.checkInRange(buf.length, srcOff, length);
         checkAbleToIO(off, 8 * length);
         unsafePut(off, buf, srcOff, length, order);

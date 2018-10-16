@@ -61,8 +61,8 @@ public class AccessorNatives {
      * @param count the number of items to copy. Both the input buffer and the output buffer must have at least
      *              count * dataSize of available space. The native code do not check for the size of the buffer and,
      *              if this is not correctly set, the JVM may crash.
-     * @param srcEndianness the endianness of the input data. See {@link MemoryAccessorOrder#id}
-     * @param dstEndianness the endianness of the output data. See {@link MemoryAccessorOrder#id}
+     * @param srcEndianness the endianness of the input data. See {@link DataOrder#id}
+     * @param dstEndianness the endianness of the output data. See {@link DataOrder#id}
      */
     public static native int copyMemory(Object arrayIn, long addressIn, long offsetIn, Object arrayOut,
                                          long addressOut, long offsetOut, int dataSize, long count,
