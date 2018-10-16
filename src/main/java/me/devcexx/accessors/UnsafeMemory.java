@@ -175,16 +175,27 @@ public class UnsafeMemory {
         }
     }
 
-    public static void copyMemBlockToArray(long srcAddr, Object dstArray, int dstOff, int dataSize, long count, MemoryAccessorOrder order) {
-        AccessorNatives.copyMemory(null, srcAddr, 0, dstArray, 0, dstOff * dataSize, dataSize, count, order.id, MemoryAccessorOrder.NATIVE_ENDIANNESS.id);
+    public static void copyArrayToArray(Object srcArray, int srcOff, Object dstArray,
+                                        int dstOff, int dataSize, int count, MemoryAccessorOrder order) {
+        AccessorNatives.copyMemory(srcArray, 0, srcOff, dstArray, 0,
+                dstOff, dataSize, count,
+                MemoryAccessorOrder.NATIVE_ENDIANNESS.id, order.id);
+    }
+
+    public static void copyMemBlockToArray(long srcAddr, Object dstArray, int dstOff,
+                                           int dataSize, long count, MemoryAccessorOrder order) {
+        AccessorNatives.copyMemory(null, srcAddr, 0, dstArray, 0, dstOff * dataSize,
+                dataSize, count, order.id, MemoryAccessorOrder.NATIVE_ENDIANNESS.id);
     }
 
     public static void copyMemBlockToAddress(long srcAddr, long dstAddr, long count) {
         AccessorNatives.copyMemory(null, srcAddr, 0, null, dstAddr, 0, 1, count, 0, 0);
     }
 
-    public static void copyArrayToAddress(Object srcArray, int srcOff, long dstAddress, int dataSize, long count, MemoryAccessorOrder order) {
-        AccessorNatives.copyMemory(srcArray, 0, srcOff, null, dstAddress, 0, dataSize, count, MemoryAccessorOrder.NATIVE_ENDIANNESS.id, order.id);
+    public static void copyArrayToAddress(Object srcArray, int srcOff, long dstAddress,
+                                          int dataSize, long count, MemoryAccessorOrder order) {
+        AccessorNatives.copyMemory(srcArray, 0, dataSize * srcOff, null, dstAddress,
+                0, dataSize, count, MemoryAccessorOrder.NATIVE_ENDIANNESS.id, order.id);
     }
 
     public static long alloc(long size) {

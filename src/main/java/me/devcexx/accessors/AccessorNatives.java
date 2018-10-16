@@ -240,6 +240,7 @@ public class AccessorNatives {
         throw new ExceptionInInitializerError("Cannot load accessors native library");
     }
 
+    public static native long arrayMemset(Object object, int offset, int length, byte value);
 
     static {
         loadNatives();

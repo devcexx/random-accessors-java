@@ -270,3 +270,14 @@ JNIEXPORT jint JNICALL Java_me_devcexx_accessors_AccessorNatives_constantValueOf
     return -1;
   }
 }
+
+/*
+ * Class:     me_devcexx_accessors_AccessorNatives
+ * Method:    arrayMemset
+ * Signature: (Ljava/lang/Object;IIB)J
+ */
+JNIEXPORT jlong JNICALL Java_me_devcexx_accessors_AccessorNatives_arrayMemset
+(JNIEnv * env, jclass clazz, jobject array, jint off, jint len, jbyte x) {
+  char* in = (char *) (*env)->GetPrimitiveArrayCritical(env, array, 0);
+  memset(in, x, len);
+}
