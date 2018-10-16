@@ -14,6 +14,24 @@ public class ByteArraySource extends RandomAccessSource {
 		this.off = off;
 	}
 
+    /**
+     * Returns the underlying array of this source.
+     */
+	public byte[] array() {
+	    if (deallocated())
+	        throw new IllegalStateException("The source was deallocated and the " +
+                    "backing array cannot be retrieved");
+	    return buf;
+    }
+
+    /**
+     * Returns the offset from the beginning of the underlying array where
+     * the current source starts from.
+     */
+    public int arrayOffset() {
+	    return off;
+    }
+
 	@Override
 	public ByteBuffer byteBuffer(long off, long length) {
 		Validate.checkInRange(this.length, this.off + off, length);
