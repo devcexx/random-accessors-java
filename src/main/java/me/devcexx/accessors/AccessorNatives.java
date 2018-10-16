@@ -189,7 +189,7 @@ public class AccessorNatives {
             System.loadLibrary(LIB_NAME);
             return;
         } catch (UnsatisfiedLinkError ex) { }
-        int arch = UnsafeMemory.wordSize() * 8;
+        int arch = Unsafe.wordSize() * 8;
 
         //Attempt to load CPU generic library (with arch specifier)
         try {

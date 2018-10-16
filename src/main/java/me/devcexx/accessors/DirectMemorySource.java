@@ -54,48 +54,48 @@ public class DirectMemorySource extends RandomAccessSource {
 
         //Create an association with the new byte buffer and thhe current source, so it is not deallocated
         //until all the byte buffers that is using it has been destroyed too.
-        return UnsafeMemory.createDirectBuffer(address + off, length, this);
+        return Unsafe.createDirectBuffer(address + off, length, this);
     }
 
     @Override
     public void clear(byte x, long off, long length) {
         Validate.checkInRange(this.length(), off, length);
-        UnsafeMemory.memset(address + off, length, x);
+        Unsafe.memset(address + off, length, x);
     }
 
     @Override
     public byte unsafeGet(long off) {
-        return UnsafeMemory.getByte(address + off);
+        return Unsafe.getByte(address + off);
     }
 
     @Override
     public short unsafeGetShort(long off, MemoryAccessorOrder order) {
-        return UnsafeMemory.getShort(address + off, order);
+        return Unsafe.getShort(address + off, order);
     }
 
     @Override
     public char unsafeGetChar(long off, MemoryAccessorOrder order) {
-        return UnsafeMemory.getChar(address + off, order);
+        return Unsafe.getChar(address + off, order);
     }
 
     @Override
     public int unsafeGetInt(long off, MemoryAccessorOrder order) {
-        return UnsafeMemory.getInt(address + off, order);
+        return Unsafe.getInt(address + off, order);
     }
 
     @Override
     public long unsafeGetLong(long off, MemoryAccessorOrder order) {
-        return UnsafeMemory.getLong(address + off, order);
+        return Unsafe.getLong(address + off, order);
     }
 
     @Override
     public float unsafeGetFloat(long off, MemoryAccessorOrder order) {
-        return UnsafeMemory.getFloat(address + off, order);
+        return Unsafe.getFloat(address + off, order);
     }
 
     @Override
     public double unsafeGetDouble(long off, MemoryAccessorOrder order) {
-        return UnsafeMemory.getDouble(address + off, order);
+        return Unsafe.getDouble(address + off, order);
     }
 
     @Override
@@ -106,8 +106,8 @@ public class DirectMemorySource extends RandomAccessSource {
     @Override
     public void unsafeGet(long off, ByteBuffer buf) {
         if (buf.isDirect()) {
-            UnsafeMemory.copyMemBlockToAddress(address + off,
-                    UnsafeMemory.addressOfByteBuffer(buf) + buf.position(),
+            Unsafe.copyMemBlockToAddress(address + off,
+                    Unsafe.addressOfByteBuffer(buf) + buf.position(),
                     buf.remaining());
         } else {
             get(off, buf.array(), buf.arrayOffset() + buf.position(), buf.remaining());
@@ -147,37 +147,37 @@ public class DirectMemorySource extends RandomAccessSource {
 
     @Override
     public void unsafePut(long off, byte value) {
-        UnsafeMemory.putByte(address + off, value);
+        Unsafe.putByte(address + off, value);
     }
 
     @Override
     public void unsafePut(long off, short value, MemoryAccessorOrder order) {
-        UnsafeMemory.putShort(address + off, value, order);
+        Unsafe.putShort(address + off, value, order);
     }
 
     @Override
     public void unsafePut(long off, char value, MemoryAccessorOrder order) {
-        UnsafeMemory.putChar(address + off, value, order);
+        Unsafe.putChar(address + off, value, order);
     }
 
     @Override
     public void unsafePut(long off, int value, MemoryAccessorOrder order) {
-        UnsafeMemory.putInt(address + off, value, order);
+        Unsafe.putInt(address + off, value, order);
     }
 
     @Override
     public void unsafePut(long off, long value, MemoryAccessorOrder order) {
-        UnsafeMemory.putLong(address + off, value, order);
+        Unsafe.putLong(address + off, value, order);
     }
 
     @Override
     public void unsafePut(long off, float value, MemoryAccessorOrder order) {
-        UnsafeMemory.putFloat(address + off, value, order);
+        Unsafe.putFloat(address + off, value, order);
     }
 
     @Override
     public void unsafePut(long off, double value, MemoryAccessorOrder order) {
-        UnsafeMemory.putDouble(address + off, value, order);
+        Unsafe.putDouble(address + off, value, order);
     }
 
     @Override
@@ -188,7 +188,7 @@ public class DirectMemorySource extends RandomAccessSource {
     @Override
     public void unsafePut(long off, ByteBuffer buf) {
         if (buf.isDirect()) {
-            UnsafeMemory.copyMemBlockToAddress(UnsafeMemory.addressOfByteBuffer(buf) + buf.position(),
+            Unsafe.copyMemBlockToAddress(Unsafe.addressOfByteBuffer(buf) + buf.position(),
                     address + off,
                     buf.remaining());
         } else {
@@ -230,7 +230,7 @@ public class DirectMemorySource extends RandomAccessSource {
     @Override
     public void dealloc() {
         if (!deallocated) {
-            UnsafeMemory.dealloc(address);
+            Unsafe.dealloc(address);
             deallocated = true;
         }
     }
@@ -242,10 +242,10 @@ public class DirectMemorySource extends RandomAccessSource {
     }
 
     protected void readToArray(long srcOff, Object buf, int dataSize, int dstOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyMemBlockToArray(address + srcOff, buf, dstOff, dataSize, len, order);
+        Unsafe.copyMemBlockToArray(address + srcOff, buf, dstOff, dataSize, len, order);
     }
 
     protected void writeFromArray(int srcOff, Object buf, int dataSize, long dstOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToAddress(buf, srcOff, address + dstOff, dataSize, len, order);
+        Unsafe.copyArrayToAddress(buf, srcOff, address + dstOff, dataSize, len, order);
     }
 }

@@ -23,7 +23,7 @@ import java.lang.reflect.Field;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 
-public class UnsafeMemory {
+public class Unsafe {
     public static final sun.misc.Unsafe UNSAFE;
     public static final Constructor<? extends ByteBuffer> BYTE_BUF_CTOR;
 

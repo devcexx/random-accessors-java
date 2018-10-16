@@ -100,18 +100,18 @@ public class ByteArraySource extends RandomAccessSource {
 
 	@Override
 	public void unsafeGet(long off, byte[] buffer, int dstOff, int len) {
-        UnsafeMemory.copyArrayToArray(buf, (int) (this.off + off), buffer,
+        Unsafe.copyArrayToArray(buf, (int) (this.off + off), buffer,
                 dstOff, 1, len, MemoryAccessorOrder.NATIVE_ENDIANNESS);
 	}
 
 	@Override
 	public void unsafeGet(long off, ByteBuffer buf) {
         if (buf.isDirect()) {
-            UnsafeMemory.copyArrayToAddress(this.buf, (int) (this.off + off),
-                    UnsafeMemory.addressOfByteBuffer(buf) + buf.position(), 1,
+            Unsafe.copyArrayToAddress(this.buf, (int) (this.off + off),
+                    Unsafe.addressOfByteBuffer(buf) + buf.position(), 1,
                     buf.remaining(), MemoryAccessorOrder.NATIVE_ENDIANNESS);
         } else {
-            UnsafeMemory.copyArrayToArray(this.buf, (int) (this.off + off),
+            Unsafe.copyArrayToArray(this.buf, (int) (this.off + off),
                     buf.array(), buf.arrayOffset() + buf.position(), 1,
                     buf.remaining(), MemoryAccessorOrder.NATIVE_ENDIANNESS);
         }
@@ -120,37 +120,37 @@ public class ByteArraySource extends RandomAccessSource {
 
 	@Override
 	public void unsafeGet(long off, char[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buf, (int) (this.off + off), buffer,
+        Unsafe.copyArrayToArray(buf, (int) (this.off + off), buffer,
                 2 * dstOff, 2, len, order);
 	}
 
 	@Override
 	public void unsafeGet(long off, short[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buf, (int) (this.off + off), buffer,
+        Unsafe.copyArrayToArray(buf, (int) (this.off + off), buffer,
                 2 * dstOff, 2, len, order);
 	}
 
 	@Override
 	public void unsafeGet(long off, int[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buf, (int) (this.off + off), buffer,
+        Unsafe.copyArrayToArray(buf, (int) (this.off + off), buffer,
                 4 * dstOff, 4, len, order);
 	}
 
 	@Override
 	public void unsafeGet(long off, long[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buf, (int) (this.off + off), buffer,
+        Unsafe.copyArrayToArray(buf, (int) (this.off + off), buffer,
                 8 * dstOff, 8, len, order);
 	}
 
 	@Override
 	public void unsafeGet(long off, float[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buf, (int) (this.off + off), buffer,
+        Unsafe.copyArrayToArray(buf, (int) (this.off + off), buffer,
                 4 * dstOff, 4, len, order);
 	}
 
 	@Override
 	public void unsafeGet(long off, double[] buffer, int dstOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buf, (int) (this.off + off), buffer,
+        Unsafe.copyArrayToArray(buf, (int) (this.off + off), buffer,
                 8 * dstOff, 8, len, order);
 	}
 
@@ -191,18 +191,18 @@ public class ByteArraySource extends RandomAccessSource {
 
 	@Override
 	public void unsafePut(long off, byte[] buffer, int srcOff, int len) {
-        UnsafeMemory.copyArrayToArray(buffer, srcOff, this.buf, (int) (this.off + off),
+        Unsafe.copyArrayToArray(buffer, srcOff, this.buf, (int) (this.off + off),
                 1, len, MemoryAccessorOrder.NATIVE_ENDIANNESS);
 	}
 
 	@Override
 	public void unsafePut(long off, ByteBuffer buf) {
         if (buf.isDirect()) {
-            UnsafeMemory.copyMemBlockToArray(UnsafeMemory.addressOfByteBuffer(buf) + buf.position(),
+            Unsafe.copyMemBlockToArray(Unsafe.addressOfByteBuffer(buf) + buf.position(),
                     this.buf, (int) (this.off + off), 1, buf.remaining(),
                     MemoryAccessorOrder.NATIVE_ENDIANNESS);
         } else {
-            UnsafeMemory.copyArrayToArray(buf.array(), buf.arrayOffset() + buf.position(),
+            Unsafe.copyArrayToArray(buf.array(), buf.arrayOffset() + buf.position(),
                     this.buf, (int) (this.off + off), 1, buf.remaining(),
                     MemoryAccessorOrder.NATIVE_ENDIANNESS);
         }
@@ -211,37 +211,37 @@ public class ByteArraySource extends RandomAccessSource {
 
 	@Override
 	public void unsafePut(long off, short[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buffer, 2 * srcOff, this.buf, (int) (this.off + off),
+        Unsafe.copyArrayToArray(buffer, 2 * srcOff, this.buf, (int) (this.off + off),
                 2, len, order);
 	}
 
 	@Override
 	public void unsafePut(long off, char[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buffer, 2 * srcOff, this.buf, (int) (this.off + off),
+        Unsafe.copyArrayToArray(buffer, 2 * srcOff, this.buf, (int) (this.off + off),
                 2, len, order);
 	}
 
 	@Override
 	public void unsafePut(long off, int[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buffer, 4 * srcOff, this.buf, (int) (this.off + off),
+        Unsafe.copyArrayToArray(buffer, 4 * srcOff, this.buf, (int) (this.off + off),
                 4, len, order);
 	}
 
 	@Override
 	public void unsafePut(long off, long[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buffer, 8 * srcOff, this.buf, (int) (this.off + off),
+        Unsafe.copyArrayToArray(buffer, 8 * srcOff, this.buf, (int) (this.off + off),
                 8, len, order);
 	}
 
 	@Override
 	public void unsafePut(long off, float[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buffer, 4 * srcOff, this.buf, (int) (this.off + off),
+        Unsafe.copyArrayToArray(buffer, 4 * srcOff, this.buf, (int) (this.off + off),
                 4, len, order);
 	}
 
 	@Override
 	public void unsafePut(long off, double[] buffer, int srcOff, int len, MemoryAccessorOrder order) {
-        UnsafeMemory.copyArrayToArray(buffer, 8 * srcOff, this.buf, (int) (this.off + off),
+        Unsafe.copyArrayToArray(buffer, 8 * srcOff, this.buf, (int) (this.off + off),
                 8, len, order);
 	}
 }

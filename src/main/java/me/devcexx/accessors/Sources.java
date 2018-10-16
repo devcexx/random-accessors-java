@@ -13,7 +13,7 @@ public class Sources {
      * @return a new {@link DirectMemorySource} attached to the just allocated memory region.
      */
     public static DirectMemorySource alloc(long size) {
-        return new DirectMemorySource(UnsafeMemory.alloc(size), size);
+        return new DirectMemorySource(Unsafe.alloc(size), size);
     }
 
     /**
@@ -23,7 +23,7 @@ public class Sources {
      * @return a new {@link DirectMemorySource} attached to the just allocated memory region.
      */
     public static DirectMemorySource calloc(long size) {
-        return new DirectMemorySource(UnsafeMemory.allocAndSet(size, (byte) 0), size);
+        return new DirectMemorySource(Unsafe.allocAndSet(size, (byte) 0), size);
     }
 
     /**
@@ -34,7 +34,7 @@ public class Sources {
      * @return a new {@link DirectMemorySource} attached to the just allocated memory region.
      */
     public static DirectMemorySource allocAndSet(long size, byte data) {
-        return new DirectMemorySource(UnsafeMemory.allocAndSet(size, data), size);
+        return new DirectMemorySource(Unsafe.allocAndSet(size, data), size);
     }
 
     /**
@@ -60,10 +60,10 @@ public class Sources {
     public static RandomAccessSource fromByteBuffer(ByteBuffer bf, boolean clipToState) {
         if (bf.isDirect()) {
             if (clipToState) {
-                return new DirectMemorySource(UnsafeMemory.addressOfByteBuffer(bf)
+                return new DirectMemorySource(Unsafe.addressOfByteBuffer(bf)
                         + bf.position(), bf.remaining());
             } else {
-                return new DirectMemorySource(UnsafeMemory.addressOfByteBuffer(bf),
+                return new DirectMemorySource(Unsafe.addressOfByteBuffer(bf),
                         bf.capacity());
             }
         } else if (bf.hasArray()) {

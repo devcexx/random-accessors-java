@@ -34,7 +34,7 @@ public class DirectNioBufferSource extends DirectMemorySource {
      * @param buffer a Java NIO Direct Buffer.
      */
     public DirectNioBufferSource(ByteBuffer buffer) {
-        super(UnsafeMemory.addressOfByteBuffer(buffer), buffer.capacity());
+        super(Unsafe.addressOfByteBuffer(buffer), buffer.capacity());
         this.byteBuffer = buffer.duplicate();
     }
 

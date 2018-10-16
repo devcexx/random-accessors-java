@@ -303,7 +303,7 @@ public class RandomAccessor {
      * @return the number of bytes skipped and zero-ed.
      */
     public long padToWord() {
-        return padTo(UnsafeMemory.wordSize());
+        return padTo(Unsafe.wordSize());
     }
 
     /**
@@ -313,7 +313,7 @@ public class RandomAccessor {
      * @return the number of bytes skipped and filled.
      */
     public long padToWord(byte fill) {
-        return padTo(UnsafeMemory.wordSize(), fill);
+        return padTo(Unsafe.wordSize(), fill);
     }
 
     /**
@@ -350,7 +350,7 @@ public class RandomAccessor {
      * @return the number of bytes skipped.
      */
     public long alignToWord() {
-        return alignTo(UnsafeMemory.wordSize());
+        return alignTo(Unsafe.wordSize());
     }
 
     /**
