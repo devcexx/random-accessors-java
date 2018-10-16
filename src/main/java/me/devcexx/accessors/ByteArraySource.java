@@ -17,7 +17,12 @@ public class ByteArraySource extends RandomAccessSource {
 	@Override
 	public ByteBuffer byteBuffer(long off, long length) {
 		Validate.checkInRange(this.length, this.off + off, length);
-		return ByteBuffer.wrap(buf, (int) (this.off + off), (int) length);
+
+		//The #wrap(byte[], int, int) method just return
+        //an ByteBuffer initialized with a non-zero position and a limit set.
+        //We are calling #slice so we can return a buffer
+        //actually limited to the requested range.
+		return ByteBuffer.wrap(buf, (int) (this.off + off), (int) length).slice();
 	}
 
 	@Override
