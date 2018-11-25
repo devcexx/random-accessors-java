@@ -60,11 +60,9 @@ public class Sources {
     public static RandomAccessSource fromByteBuffer(ByteBuffer bf, boolean clipToState) {
         if (bf.isDirect()) {
             if (clipToState) {
-                return new DirectMemorySource(Unsafe.addressOfByteBuffer(bf)
-                        + bf.position(), bf.remaining());
+                return new DirectNioBufferSource(bf).slice(bf.position(), bf.remaining());
             } else {
-                return new DirectMemorySource(Unsafe.addressOfByteBuffer(bf),
-                        bf.capacity());
+                return new DirectNioBufferSource(bf);
             }
         } else if (bf.hasArray()) {
             if (clipToState) {
