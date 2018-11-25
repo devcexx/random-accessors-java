@@ -60,17 +60,43 @@ public abstract class RandomAccessSource {
     }
 
     /**
-     * Returns a value that indicates if the current source is read only.
+     * Returns the permissions that are being applied to all the operations over
+     * this accessor.
+     * @see AccessorPermissions
      */
-    public boolean isReadOnly() {
-        return false;
+    public int getPermissions() {
+        return AccessorPermissions.READ | AccessorPermissions.WRITE;
     }
 
     /**
-     * Builds a read only view from the current source.
+     * Checks whether the user is able to read from this accessor.
+     * @return true if so, false otherwise.
      */
-    public ReadOnlyMemorySource readOnly() {
-        return new ReadOnlyMemorySource(this, 0, length);
+    public final boolean isReadable() {
+        return AccessorPermissions.isReadable(getPermissions());
+    }
+
+    /**
+     * Checks whether the user is able to write from this accessor.
+     * @return true if so, false otherwise.
+     */
+    public final boolean isWritable() {
+        return AccessorPermissions.isWritable(getPermissions());
+    }
+
+    /**
+     * Creates a new source backed on the current one, updating its
+     * access permissions.
+     *
+     * @param mask The permission mask that will be used to compute the
+     *             final permissions of the new accessor. The final permissions
+     *             are computed performing an AND operation between the
+     *             permissions of the current accessor and the given mask.
+     *             This implies that the built accessor can only have the same,
+     *             or less, permissions than the current one.
+     */
+    public RandomAccessSource withPermissions(int mask) {
+        return new SlicedSource(this, 0, length(), mask);
     }
 
     /**
