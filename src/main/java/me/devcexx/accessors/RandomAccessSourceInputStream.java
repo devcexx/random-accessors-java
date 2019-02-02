@@ -103,7 +103,7 @@ public class RandomAccessSourceInputStream extends InputStream {
                 return -1;
             }
         }
-        return source.unsafeGet(readingOff);
+        return source.unsafeGet(readingOff) & 0xff;
     }
 
     @Override
